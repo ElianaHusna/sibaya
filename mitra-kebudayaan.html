@@ -63,6 +63,17 @@
     transition:width .15s ease;
   }
 
+  /* TOPBAR */
+  .topbar{
+    background:var(--wine-deep);
+    color:rgba(255,255,255,.9);
+    font-size:11.5px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:.06em;
+    position:relative;z-index:2;
+  }
+  .topbar span{opacity:.85}
+
   /* NAVBAR */
   .navbar{
     position:sticky;top:0;z-index:100;
@@ -130,31 +141,29 @@
     align-items:center;justify-content:center;
   }
 
-  /* REVEAL */
-  .reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  /* REVEAL — SMOOTH KONSISTEN */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
   .reveal.active{opacity:1;transform:translateY(0)}
-  .reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
   .reveal-left.active{opacity:1;transform:translateX(0)}
-  .reveal-right{opacity:0;transform:translateX(60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-right{opacity:0;transform:translateX(32px);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
   .reveal-right.active{opacity:1;transform:translateX(0)}
-  .reveal-zoom{opacity:0;transform:scale(.92);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-zoom{opacity:0;transform:scale(.96);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
   .reveal-zoom.active{opacity:1;transform:scale(1)}
-  .reveal-photo{opacity:0;transform:scale(1.08);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+  .reveal-photo{opacity:0;transform:scale(1.03);transition:opacity .7s var(--ease),transform .7s var(--ease);will-change:opacity,transform}
   .reveal-photo.active{opacity:1;transform:scale(1)}
-  .reveal-img{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-img{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);will-change:opacity,transform}
   .reveal-img.active{opacity:1;transform:translateY(0)}
-  .delay-1{transition-delay:.08s}
-  .delay-2{transition-delay:.16s}
-  .delay-3{transition-delay:.24s}
-  .delay-4{transition-delay:.32s}
-  .delay-5{transition-delay:.40s}
-  .delay-6{transition-delay:.48s}
+  .delay-1{transition-delay:.06s}
+  .delay-2{transition-delay:.12s}
+  .delay-3{transition-delay:.18s}
+  .delay-4{transition-delay:.24s}
+  .delay-5{transition-delay:.30s}
+  .delay-6{transition-delay:.36s}
 
   /* SECTION */
-  section{padding:90px 0;position:relative}
-
-  /* DETAIL SECTION */
-  .detail-section{padding:70px 0 90px;background:transparent}
+  section{padding:80px 0;position:relative}
+  .detail-section{padding:60px 0 80px;background:transparent}
   .detail-inner{
     background:transparent;
     border-radius:20px;
@@ -422,12 +431,12 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:60px 20px 20px;
-    margin-top:20px;
+    padding:50px 20px 20px;
+    margin-top:10px;
   }
   .disdikbud-mark img{
     width:auto;
-    height:100px;
+    height:90px;
     object-fit:contain;
     opacity:.95;
     pointer-events:none;
@@ -478,6 +487,7 @@
     line-height:1.9;
     color:rgba(255,255,255,.7);
     transition:color .25s ease;
+    word-break:break-all;
   }
   footer a:hover{color:var(--gold)}
   .footer-copy{
@@ -588,22 +598,85 @@
       box-shadow:0 20px 40px rgba(0,0,0,.3);
     }
     .nav-links.open a{padding:14px 12px;border-radius:8px}
-    section{padding:70px 0}
+    section{padding:60px 0}
+    .section-block{margin-top:60px}
   }
   @media(max-width:600px){
     .container{width:min(100% - 32px,1180px)}
-    .brand{font-size:18px}
-    .brand-mark{width:38px;height:38px;font-size:15px}
-    .nav-inner{min-height:64px}
-    .nav-links.open{top:64px}
-    .galeri-grid-3{grid-template-columns:1fr}
-    .stats-card-container{grid-template-columns:1fr}
-    .footer-top{grid-template-columns:1fr;gap:34px}
-    .lightbox{padding:16px}
-    .lightbox .nav-btn{width:40px;height:40px;font-size:18px}
-    .lightbox .nav-btn.prev{left:12px}
-    .lightbox .nav-btn.next{right:12px}
+    .topbar{font-size:10px;letter-spacing:.03em;height:32px}
+    .topbar span{padding:0 12px;text-align:center}
+
+    .brand{font-size:17px;gap:9px}
+    .brand-mark{width:36px;height:36px;font-size:14px;border-radius:8px}
+    .brand img{height:36px;border-radius:6px}
+    .brand-sub{font-size:8.5px;letter-spacing:2px}
+    .nav-inner{min-height:60px}
+    .nav-links.open{top:60px;padding:12px 18px 18px}
+
+    section{padding:48px 0}
+    .detail-section{padding:44px 0 60px}
+    .section-block{margin-top:52px}
+
+    /* INFO */
+    .info-grid{gap:28px;margin-bottom:36px}
+    .info-content .eyebrow{font-size:10px;letter-spacing:3px;margin-bottom:12px}
+    .info-grid h1{font-size:30px;letter-spacing:-1px;margin-bottom:14px}
+    .info-grid p{font-size:14px;line-height:1.75;text-align:left}
+
+    /* STATS */
+    .stats-card-container{gap:12px}
+    .stat-card{padding:22px 16px;border-radius:14px}
+    .stat-card strong{font-size:34px;margin-bottom:6px}
+    .stat-card span{font-size:10.5px;letter-spacing:1.2px}
+
+    /* FOTO HERO */
+    .foto-besar{margin-bottom:48px;border-radius:16px}
+    .foto-besar img{aspect-ratio:4/3}
+    .foto-besar::after{display:none}
+
+    /* HEADING */
+    .section-heading-center{margin-bottom:32px}
+    .section-heading-center .eyebrow{font-size:10px;letter-spacing:3px;margin-bottom:10px}
+    .section-heading-center h2{font-size:24px;letter-spacing:-.6px}
+    .section-heading-center p{font-size:13.5px}
+
+    /* KEGIATAN */
+    .kegiatan-layout{gap:22px;margin-bottom:22px}
+    .kegiatan-card{border-radius:16px}
+    .kegiatan-card-header{padding:18px 18px 20px}
+    .kegiatan-card-header h3{font-size:16px;margin-bottom:6px}
+    .kegiatan-card-header p{font-size:12.5px}
+    .grid-2x2{gap:8px;padding:8px}
+    .kegiatan-img-single img{border-radius:10px}
+
+    /* GALERI */
+    .galeri-grid-3{grid-template-columns:1fr;gap:16px}
+    .img-card{border-radius:14px}
+
+    /* LOGO */
+    .disdikbud-mark{padding:34px 16px 10px}
     .disdikbud-mark img{height:70px}
+
+    /* FOOTER */
+    footer{padding:50px 0 24px}
+    .footer-top{grid-template-columns:1fr;gap:28px;padding-bottom:34px}
+    .footer-brand{margin-bottom:14px}
+    .footer-brand-mark{width:38px;height:38px;font-size:15px}
+    .footer-brand-name{font-size:18px}
+    footer h4{font-size:11px;letter-spacing:2px;margin-bottom:14px}
+    footer p,footer a{font-size:12.5px;line-height:1.85}
+    .footer-copy{font-size:11px;padding-top:22px}
+
+    /* TO-TOP */
+    .to-top{width:42px;height:42px;right:18px;bottom:18px;font-size:16px}
+
+    /* LIGHTBOX */
+    .lightbox{padding:12px}
+    .lightbox img{border-radius:8px}
+    .lightbox .close-btn{width:42px;height:42px;font-size:20px;top:14px;right:14px}
+    .lightbox .nav-btn{width:38px;height:38px;font-size:16px}
+    .lightbox .nav-btn.prev{left:8px}
+    .lightbox .nav-btn.next{right:8px}
   }
 </style>
 </head>
@@ -611,6 +684,11 @@
 
   <!-- PROGRESS BAR -->
   <div class="progress-bar" id="progressBar"></div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span>Dinas Pendidikan &amp; Kebudayaan Kota Balikpapan · Kalimantan Timur</span>
+  </div>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
@@ -737,6 +815,12 @@
             </div>
           </div>
         </div>
+
+        <!-- LOGO DISDIKBUD -->
+        <div class="disdikbud-mark reveal">
+          <img src="logo-disdikbud.png" alt="Logo Disdikbud Kota Balikpapan">
+        </div>
+
       </div>
     </div>
   </section>
@@ -764,7 +848,7 @@
         </div>
         <div>
           <h4>Kontak</h4>
-          <p>aryaqu007@gmail.com</p>
+          <p>ylia85151@gmail.com</p>
           <p>+62 812 5416 353</p>
           <p>info@sibayabalikpapan.online</p>
         </div>
@@ -827,7 +911,7 @@
         revealObs.unobserve(e.target);
       }
     });
-  }, { threshold:.12, rootMargin:'0px 0px -80px 0px' });
+  }, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
   revealEls.forEach(el => revealObs.observe(el));
 
   /* COUNTER ANGKA STATISTIK */
