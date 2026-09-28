@@ -565,7 +565,7 @@
     margin-right:auto;
   }
 
-  /* GALERI — SEKARANG KOTAK 1:1 */
+  /* GALERI — KOTAK 1:1 */
   .galeri{
     background:#fdfbfb;
     padding:110px 0;
@@ -582,7 +582,7 @@
     box-shadow:var(--shadow);
     cursor:pointer;
     transition:transform .5s var(--ease),box-shadow .5s var(--ease);
-    aspect-ratio:1/1; /* KOTAK */
+    aspect-ratio:1/1;
   }
   .galeri-item img{
     width:100%;height:100%;
@@ -939,6 +939,7 @@
   .kontak-info-item a{
     color:rgba(255,255,255,.9);
     transition:color .25s ease;
+    word-break:break-all;
   }
   .kontak-info-item a:hover{color:var(--gold)}
   .kontak-img{
@@ -1076,6 +1077,7 @@
     line-height:1.9;
     color:rgba(255,255,255,.7);
     transition:color .25s ease;
+    word-break:break-all;
   }
   footer a:hover{color:var(--gold)}
   .footer-copy{
@@ -1157,12 +1159,18 @@
     transform:rotate(90deg) scale(1.05);
   }
 
-  /* RESPONSIVE */
+  /* =============================================
+     RESPONSIVE — TABLET
+  ============================================= */
   @media(max-width:1024px){
     .about-grid{grid-template-columns:1fr;gap:50px}
     .about-gallery{grid-template-columns:repeat(3,1fr)}
     .footer-top{grid-template-columns:1fr 1fr;gap:40px}
   }
+
+  /* =============================================
+     RESPONSIVE — MOBILE (DIPERBAIKI)
+  ============================================= */
   @media(max-width:900px){
     .nav-links{display:none}
     .hamburger{display:flex}
@@ -1178,38 +1186,170 @@
       box-shadow:0 20px 40px rgba(0,0,0,.3);
     }
     .nav-links.open a{padding:14px 12px;border-radius:8px}
+
     .hero{min-height:520px}
+    .hero-content{padding:60px 0 90px}
+
     .counter-grid{grid-template-columns:repeat(2,1fr)}
     .counter-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
     .counter-item:nth-child(2n){border-right:none}
     .counter-item:nth-child(3),
     .counter-item:nth-child(4){border-bottom:none}
+
     .news-grid{grid-template-columns:repeat(2,1fr)}
     .galeri-grid{grid-template-columns:repeat(2,1fr);gap:16px}
     .layanan-grid{grid-template-columns:1fr}
     .kontak-grid{grid-template-columns:1fr;gap:50px}
+
     .video-section,.kontak-section,.counter-section{padding:80px 0}
     section{padding:80px 0}
   }
+
+  /* =============================================
+     RESPONSIVE — HP KECIL (DIPERBAIKI TOTAL)
+  ============================================= */
   @media(max-width:600px){
     .container{width:min(100% - 32px,1180px)}
-    .topbar{font-size:10px;letter-spacing:.03em}
-    .brand{font-size:18px}
-    .brand-mark{width:38px;height:38px;font-size:15px}
-    .nav-inner{min-height:64px}
-    .nav-links.open{top:64px}
-    .hero h1{letter-spacing:-1px}
-    .about-gallery{grid-template-columns:1fr;gap:28px}
-    .about-item-img{aspect-ratio:4/3}
-    .news-grid{grid-template-columns:1fr}
-    .footer-top{grid-template-columns:1fr;gap:34px}
-    .galeri-grid{grid-template-columns:1fr;gap:18px}
-    .galeri-item{aspect-ratio:1/1}
-    .layanan-kartu{flex-direction:column}
-    .layanan-kartu img{width:100%;height:160px}
-    .layanan-duo{grid-template-columns:1fr}
-    .kontak-form{padding:28px 22px}
-    .lightbox{padding:16px}
+    .topbar{font-size:10px;letter-spacing:.03em;height:32px}
+    .topbar span{padding:0 12px;text-align:center}
+
+    /* NAVBAR */
+    .brand{font-size:17px;gap:9px}
+    .brand-mark{width:36px;height:36px;font-size:14px;border-radius:8px}
+    .brand img{height:36px;border-radius:6px}
+    .brand-sub{font-size:8.5px;letter-spacing:2px}
+    .nav-inner{min-height:60px}
+    .nav-links.open{top:60px;padding:12px 18px 18px}
+
+    /* HERO */
+    .hero{min-height:auto;padding:0}
+    .hero-content{
+      padding:48px 0 64px;
+      width:calc(100% - 32px);
+    }
+    .hero h1{
+      font-size:clamp(28px,8vw,38px);
+      letter-spacing:-1px;
+      line-height:1.1;
+      margin-bottom:18px;
+    }
+    .hero-divider{margin-bottom:18px}
+    .hero p{
+      font-size:14px;
+      line-height:1.65;
+      margin-bottom:26px;
+      padding:0 4px;
+    }
+    .hero-actions{gap:10px}
+    .btn{
+      padding:12px 22px;
+      font-size:11.5px;
+      width:100%;
+      max-width:280px;
+    }
+    .scroll-hint{display:none}
+
+    /* SECTION */
+    section{padding:56px 0}
+    .section-heading{margin-bottom:36px}
+    .section-heading h2{font-size:clamp(22px,6.5vw,28px)}
+    .section-heading p{font-size:13.5px;padding:0 8px}
+
+    /* TENTANG */
+    .about{padding-top:56px}
+    .about-grid{gap:36px}
+    .about-text h2{font-size:26px;letter-spacing:-.6px;margin:10px 0 16px}
+    .about-text p{font-size:14px;line-height:1.75;margin-bottom:14px}
+    .about-quote{font-size:15px;padding:6px 0 6px 16px;margin-top:20px}
+    .about-gallery{grid-template-columns:1fr;gap:20px}
+    .about-item{gap:14px}
+    .about-item-img{aspect-ratio:4/3;border-radius:12px}
+    .about-stat .num{font-size:34px}
+    .about-stat .label{font-size:11px;letter-spacing:1.5px}
+
+    /* VIDEO */
+    .video-section{padding:56px 0}
+    .video-wrapper{border-radius:14px}
+    .video-caption{font-size:12.5px;margin-top:22px}
+
+    /* GALERI */
+    .galeri{padding:56px 0}
+    .galeri-grid{grid-template-columns:1fr;gap:16px}
+    .galeri-item{aspect-ratio:1/1;border-radius:14px}
+    .galeri-caption{padding:18px 18px 16px}
+    .galeri-caption h4{font-size:17px}
+
+    /* COUNTER */
+    .counter-section{padding:52px 0}
+    .counter-grid{grid-template-columns:1fr 1fr;gap:0}
+    .counter-item{
+      padding:22px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .counter-item:nth-child(2n){border-right:none}
+    .counter-item:nth-child(3),
+    .counter-item:nth-child(4){border-bottom:none}
+    .counter-item .num{font-size:30px}
+    .counter-item .plus{font-size:22px}
+    .counter-item .label{font-size:10px;letter-spacing:1.5px;margin-top:10px}
+
+    /* BERITA */
+    .news-section{padding:56px 0}
+    .news-grid{grid-template-columns:1fr;gap:14px}
+    .news-card .img-wrap{aspect-ratio:16/10}
+    .news-card .badge{top:12px;left:12px;font-size:9.5px;padding:4px 10px}
+
+    /* LAYANAN */
+    .layanan-section{padding:56px 0}
+    .layanan-grid{gap:20px}
+    .layanan-besar{border-radius:14px}
+    .layanan-kartu{flex-direction:column;padding:14px;gap:12px}
+    .layanan-kartu img{width:100%;height:150px;border-radius:10px}
+    .layanan-kartu .isi h4{font-size:15px}
+    .layanan-kartu .isi p{font-size:12.5px}
+    .layanan-data-pokok img{height:130px}
+    .layanan-duo{grid-template-columns:1fr;gap:12px}
+    .layanan-duo img{height:130px}
+
+    /* KONTAK */
+    .kontak-section{padding:56px 0}
+    .kontak-grid{gap:34px}
+    .kontak-left h2{font-size:26px}
+    .kontak-left p{font-size:14px;margin-bottom:24px}
+    .kontak-info{gap:12px;margin-bottom:24px}
+    .kontak-info-item{font-size:13px;gap:12px}
+    .kontak-info-item .ic{width:34px;height:34px;font-size:14px;border-radius:9px}
+    .kontak-img{height:200px;border-radius:12px}
+    .kontak-form{padding:24px 20px;border-radius:16px}
+    .kontak-form h3{font-size:20px}
+    .form-desc{font-size:12.5px;margin-bottom:20px}
+    .kontak-form label{font-size:11px;letter-spacing:.8px}
+    .kontak-form input,
+    .kontak-form textarea{
+      padding:12px 14px;
+      font-size:14px;
+      margin-bottom:16px;
+      border-radius:8px;
+    }
+    .kontak-form button{padding:14px 18px;font-size:12.5px;border-radius:8px}
+
+    /* FOOTER */
+    footer{padding:50px 0 24px}
+    .footer-top{grid-template-columns:1fr;gap:28px;padding-bottom:34px}
+    .footer-brand{margin-bottom:14px}
+    .footer-brand-mark{width:38px;height:38px;font-size:15px}
+    .footer-brand-name{font-size:18px}
+    footer h4{font-size:11px;letter-spacing:2px;margin-bottom:14px}
+    footer p,footer a{font-size:12.5px;line-height:1.85}
+    .footer-copy{font-size:11px;padding-top:22px}
+
+    /* TO-TOP */
+    .to-top{width:42px;height:42px;right:18px;bottom:18px;font-size:16px}
+
+    /* LIGHTBOX */
+    .lightbox{padding:12px}
+    .lightbox img{border-radius:8px}
+    .lightbox .close-btn{width:42px;height:42px;font-size:20px;top:16px;right:16px}
   }
 </style>
 </head>
@@ -1225,6 +1365,11 @@
 
   <!-- PROGRESS BAR -->
   <div class="progress-bar" id="progressBar"></div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span>Dinas Pendidikan &amp; Kebudayaan Kota Balikpapan · Kalimantan Timur</span>
+  </div>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
@@ -1351,7 +1496,7 @@
     </div>
   </section>
 
-  <!-- GALERI — KOTAK 1:1 -->
+  <!-- GALERI -->
   <section class="galeri" id="cagar-budaya">
     <div class="container">
       <div class="section-heading reveal">
@@ -1528,9 +1673,7 @@
           Kami terbuka terhadap pertanyaan, kritik, dan saran dari Anda.
         </p>
 
-        <!-- FORM KE EMAIL YLIA85151@GMAIL.COM via FormSubmit -->
         <form action="https://formsubmit.co/ylia85151@gmail.com" method="POST">
-          <!-- Setting FormSubmit -->
           <input type="hidden" name="_subject" value="Pesan Baru dari SIBAYA">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
@@ -1609,9 +1752,17 @@
   </div>
 
 <script>
-  /* LOADER */
+  /* LOADER — fix biar gak nyangkut */
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    if (loader) loader.classList.add('hide');
+  }, 1500);
+
   window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('loader').classList.add('hide'), 600);
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hide');
+    }, 400);
   });
 
   /* PROGRESS BAR + NAVBAR SCROLL */
@@ -1680,7 +1831,6 @@
     requestAnimationFrame(tick);
   }
 
-  // Counter statistik
   const statNums = document.querySelectorAll('.about-stat .num[data-count]');
   const statObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1692,7 +1842,6 @@
   }, { threshold:.4 });
   statNums.forEach(el => statObs.observe(el));
 
-  // Counter section besar
   const counterNums = document.querySelectorAll('.counter-grid .num[data-target]');
   let counterStarted = false;
   const counterObs = new IntersectionObserver((entries) => {
