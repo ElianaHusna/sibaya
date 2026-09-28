@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanggar Seni Dewi Ratih - SIBAYA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --maroon:#6b1b2b;
+      --maroon-dark:#4a0f1c;
+      --maroon-soft:#f5e6ea;
+      --ink:#40242b;
+      --text:#6f6468;
+      --line:#ece0e3;
+      --shadow:0 8px 22px rgba(67,30,39,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.7;
+      overflow-x:hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('batik.png');
+      background-repeat: repeat;
+      background-size: 320px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .navbar, section, footer { position: relative; z-index: 1; }
+    img{display:block;width:100%}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1130px, calc(100% - 42px));margin:auto}
+
+    /* ===== EFEK SCROLL ===== */
+    .fade-up{
+      opacity:0;
+      transform:translateY(40px);
+      transition:opacity .9s ease-out, transform .9s ease-out;
+    }
+    .fade-up.muncul{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .fade-left{
+      opacity:0;
+      transform:translateX(-50px);
+      transition:opacity .9s ease-out, transform .9s ease-out;
+    }
+    .fade-left.muncul{
+      opacity:1;
+      transform:translateX(0);
+    }
+    .fade-right{
+      opacity:0;
+      transform:translateX(50px);
+      transition:opacity .9s ease-out, transform .9s ease-out;
+    }
+    .fade-right.muncul{
+      opacity:1;
+      transform:translateX(0);
+    }
+    .fade-zoom{
+      opacity:0;
+      transform:scale(.92);
+      transition:opacity .9s ease-out, transform .9s ease-out;
+    }
+    .fade-zoom.muncul{
+      opacity:1;
+      transform:scale(1);
+    }
+    /* delay */
+    .d1{transition-delay:.1s}
+    .d2{transition-delay:.2s}
+    .d3{transition-delay:.3s}
+    .d4{transition-delay:.4s}
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky; top:0; z-index:50;
+      background-image:url('navbar.jpg');
+      background-size:cover; background-position:center;
+      color:#fff; box-shadow:0 4px 16px rgba(0,0,0,.08);
+    }
+    .nav-inner{
+      min-height:70px; display:flex; align-items:center;
+      justify-content:space-between; gap:30px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-size:23px; font-weight:500; letter-spacing:-.7px;
+    }
+    .brand img{height:40px;width:auto;}
+    .nav-links{display:flex;align-items:center;gap:20px;font-size:12.5px;}
+    .nav-links a{opacity:.93;white-space:nowrap;}
+    .nav-links a:hover{opacity:1}
+    .nav-links a.active{
+      font-weight:700;opacity:1;
+      text-decoration:underline;text-underline-offset:5px;
+      text-decoration-thickness:2px;
+    }
+    .hamburger{
+      display:none;width:42px;height:42px;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:8px;color:#fff;background:transparent;
+      font-size:20px;cursor:pointer;
+    }
+
+    /* JUDUL */
+    .judul-wrap{
+      text-align:center;
+      padding:44px 20px 20px;
+    }
+    .judul-wrap h1{
+      font-family:"Playfair Display",serif;
+      font-size:36px;
+      color:var(--maroon);
+      margin:0 0 8px;
+      letter-spacing:-.5px;
+    }
+    .judul-wrap .sub{
+      font-size:12px;
+      color:var(--text);
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+    }
+    .judul-wrap .garis{
+      width:60px;height:3px;background:var(--maroon);
+      margin:14px auto 0;border-radius:3px;
+    }
+
+    /* KONTEN */
+    .konten{
+      padding:30px 0 70px;
+    }
+
+    /* BARIS: FOTO + DESKRIPSI */
+    .baris-atas{
+      display:grid;
+      grid-template-columns:1fr 1.3fr;
+      gap:36px;
+      align-items:start;
+      margin-bottom:44px;
+    }
+    .foto-sanggar{
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .foto-sanggar img{
+      width:100%;
+      height:340px;
+      object-fit:cover;
+      display:block;
+      transition:transform .6s ease;
+    }
+    .foto-sanggar:hover img{
+      transform:scale(1.04);
+    }
+    .deskripsi p{
+      font-size:14.5px;
+      color:var(--text);
+      line-height:1.85;
+      margin:0;
+      text-align:justify;
+    }
+
+    /* CARD SECTION */
+    .card{
+      background:#fff;
+      border-radius:12px;
+      padding:28px 32px;
+      box-shadow:var(--shadow);
+      margin-bottom:22px;
+      transition:transform .4s ease, box-shadow .4s ease;
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 30px rgba(67,30,39,.14);
+    }
+
+    h2.label{
+      font-family:"Playfair Display",serif;
+      font-size:22px;
+      color:var(--maroon);
+      margin:0 0 16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    h2.label::before{
+      content:"";
+      width:6px;height:20px;
+      background:var(--maroon);
+      border-radius:3px;
+      display:inline-block;
+    }
+
+    /* VISI */
+    .visi{
+      background:var(--maroon);
+      color:#fff;
+      border-radius:10px;
+      padding:24px 28px;
+      font-family:"Playfair Display",serif;
+      font-size:17px;
+      line-height:1.6;
+      font-style:italic;
+    }
+
+    /* MISI */
+    .misi{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .misi li{
+      padding:11px 0 11px 30px;
+      position:relative;
+      font-size:14.5px;
+      color:var(--ink);
+      border-bottom:1px solid var(--line);
+      transition:padding-left .3s ease, color .3s ease;
+    }
+    .misi li:last-child{border-bottom:none;}
+    .misi li:hover{
+      padding-left:38px;
+      color:var(--maroon);
+    }
+    .misi li::before{
+      content:"•";
+      position:absolute;
+      left:10px;
+      color:var(--maroon);
+      font-size:22px;
+      line-height:1.2;
+      top:9px;
+      transition:left .3s ease;
+    }
+    .misi li:hover::before{ left:16px; }
+
+    /* PROGRAM */
+    .program-list{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+    .program-list span{
+      background:var(--maroon-soft);
+      color:var(--maroon-dark);
+      padding:13px 18px;
+      border-radius:8px;
+      font-size:13.5px;
+      font-weight:600;
+      text-align:center;
+      transition:transform .3s ease, background .3s ease;
+    }
+    .program-list span:hover{
+      transform:translateY(-3px);
+      background:#eed4da;
+    }
+
+    /* ALAMAT */
+    .alamat{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:20px 24px;
+      font-size:14.5px;
+      color:var(--ink);
+      transition:border-color .3s ease, transform .3s ease;
+    }
+    .alamat:hover{
+      border-color:var(--maroon);
+      transform:translateY(-2px);
+    }
+    .alamat strong{
+      color:var(--maroon);
+      display:block;
+      font-size:11px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    /* TOMBOL KEMBALI */
+    .kembali{
+      text-align:center;
+      margin-top:38px;
+    }
+    .kembali a{
+      display:inline-block;
+      padding:11px 26px;
+      background:var(--maroon);
+      color:#fff;
+      border-radius:30px;
+      font-size:13px;
+      font-weight:600;
+      transition:.3s;
+    }
+    .kembali a:hover{
+      background:var(--maroon-dark);
+      transform:translateY(-3px);
+      box-shadow:0 10px 22px rgba(107,27,43,.3);
+    }
+
+    /* FOOTER */
+    footer{
+      background:#3f1a22; color:#fff; padding:44px 0 25px;
+    }
+    .footer-grid{
+      display:grid; grid-template-columns:1.3fr repeat(3,1fr); gap:40px;
+    }
+    footer h4{margin:0 0 14px;font-size:14px;}
+    footer p,footer a{font-size:12px;color:rgba(255,255,255,.78);margin:6px 0;}
+    footer a:hover{color:#fff;}
+    .copyright{
+      margin-top:35px;padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.14);
+      font-size:11px;color:rgba(255,255,255,.62);
+      text-align:center;
+    }
+
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:block}
+      .nav-links.open{
+        display:flex;position:absolute;top:70px;left:0;right:0;
+        background:var(--maroon);padding:18px 22px 22px;
+        flex-direction:column;align-items:flex-start;gap:14px;
+      }
+      .baris-atas{grid-template-columns:1fr;gap:24px;}
+      .foto-sanggar img{height:260px;}
+      .judul-wrap h1{font-size:28px;}
+      .card{padding:22px 22px;}
+      .program-list{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 28px,1130px)}
+      .judul-wrap h1{font-size:24px;}
+      .footer-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <img src="logo-sibaya.png" alt="Logo Sibaya">
+        SIBAYA
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="cagar-budaya.html">Cagar Budaya</a>
+        <a href="sanggar-binaan.html" class="active">Sanggar Binaan</a>
+        <a href="mitra-kebudayaan.html">Mitra Kebudayaan</a>
+        <a href="objek-pemajuan.html">Obyek Pemajuan Kebudayaan</a>
+        <a href="pelatihan.html">Pelatihan dan Pembinaan</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- JUDUL -->
+  <div class="judul-wrap fade-up">
+    <h1>Sanggar Seni Dewi Ratih</h1>
+    <div class="sub">Sanggar Binaan Kota Balikpapan</div>
+    <div class="garis"></div>
+  </div>
+
+  <!-- KONTEN -->
+  <section class="konten">
+    <div class="container">
+
+      <!-- FOTO + DESKRIPSI SEJAJAR -->
+      <div class="baris-atas">
+        <div class="foto-sanggar fade-left">
+          <img src="s2.jpg" alt="Sanggar Seni Dewi Ratih">
+        </div>
+        <div class="deskripsi fade-right">
+          <p>
+            Sanggar Seni Dewi Ratih merupakan sebuah lembaga kesenian yang berlokasi di Kota Balikpapan. Sanggar ini bergerak dalam pelestarian dan pengembangan seni budaya, khususnya seni tari tradisional dan kreasi. Didirikan untuk memberikan ruang pembelajaran, kreativitas, dan pengembangan bakat bagi generasi muda maupun masyarakat umum yang memiliki minat pada dunia seni.
+          </p>
+        </div>
+      </div>
+
+      <!-- VISI -->
+      <div class="card fade-up">
+        <h2 class="label">Visi</h2>
+        <div class="visi">
+          Menjadi sanggar seni yang unggul dalam melestarikan budaya sekaligus mencetak generasi kreatif, berkarakter, dan berprestasi di bidang seni.
+        </div>
+      </div>
+
+      <!-- MISI -->
+      <div class="card fade-up">
+        <h2 class="label">Misi</h2>
+        <ul class="misi">
+          <li>Menyelenggarakan pelatihan seni tari secara profesional dan berkelanjutan.</li>
+          <li>Menanamkan nilai-nilai budaya dan karakter melalui pembelajaran seni.</li>
+          <li>Mengembangkan berbagai bentuk karya dan pertunjukan seni.</li>
+          <li>Meningkatkan keikutsertaan dalam berbagai kegiatan, festival, dan kompetisi seni.</li>
+        </ul>
+      </div>
+
+      <!-- PROGRAM -->
+      <div class="card fade-up">
+        <h2 class="label">Program Kegiatan</h2>
+        <div class="program-list">
+          <span>Pelatihan Tari Tradisional</span>
+          <span>Pelatihan Tari Kreasi</span>
+          <span>Persiapan Lomba dan Festival</span>
+          <span>Workshop Seni</span>
+          <span style="grid-column:1/-1;">Pementasan dan Kolaborasi Budaya</span>
+        </div>
+      </div>
+
+      <!-- ALAMAT -->
+      <div class="alamat fade-up">
+        <strong>Alamat</strong>
+        Jln Pembangunan RT 24 Blok C No 3, Kota Balikpapan
+      </div>
+
+      <!-- KEMBALI -->
+      <div class="kembali fade-up">
+        <a href="sanggar-binaan.html">← Kembali ke Sanggar Binaan</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>Kontak</h4>
+        <p>Hubungi kami untuk informasi lebih lanjut</p>
+        <p>📧 aryaqu007@gmail.com</p>
+        <p>📞 +628125416353</p>
+        <p>🌐 info@sibayabalikpapan.online</p>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>aryaqu007@gmail.com</p>
+      </div>
+      <div>
+        <h4>Telepon</h4>
+        <p>+628125416353</p>
+      </div>
+      <div>
+        <h4>Link Terkait</h4>
+        <p><a href="https://dapobud.kemenbud.go.id" target="_blank">https://dapobud.kemenbud.go.id</a></p>
+      </div>
+    </div>
+    <div class="container copyright">
+      © 2026. All rights reserved. Sibaya Balikpapan.
+    </div>
+  </footer>
+
+  <script>
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) link.classList.add('active');
+    });
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== EFEK SCROLL =====
+    const elemenScroll = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .fade-zoom');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('muncul');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    elemenScroll.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

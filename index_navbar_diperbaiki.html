@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>SIBAYA - Sistem Informasi Budaya Kota Balikpapan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#8d3e51;
+      --wine-dark:#6f2f40;
+      --wine-soft:#f4e9ec;
+      --ink:#40242b;
+      --text:#6f6468;
+      --muted:#a69a9e;
+      --line:#efe7e9;
+      --bg:#fff;
+      --soft:#faf7f8;
+      --shadow:0 12px 32px rgba(67,30,39,.10);
+      --radius:10px;
+      --biru:#1a2eb8;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('batik.png');
+      background-repeat: repeat;
+      background-size: 320px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .topbar, .navbar, header, section, footer, .quick-cards, .event-strip {
+      position: relative;
+      z-index: 1;
+    }
+
+    img{display:block;width:100%}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1130px, calc(100% - 42px));margin:auto}
+
+    /* ANIMASI SCROLL */
+    .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .reveal-zoom { opacity: 0; transform: scale(0.9); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+    .reveal-zoom.active { opacity: 1; transform: scale(1); }
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+    .reveal.delay-4 { transition-delay: 0.4s; }
+    .reveal.delay-5 { transition-delay: 0.5s; }
+    .reveal.delay-6 { transition-delay: 0.6s; }
+
+    /* TOPBAR */
+    .topbar{
+      background:#153d5b;
+      color:#fff;
+      font-size:12px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      letter-spacing:.02em;
+    }
+
+    /* =========================
+       NAVBAR (GAMBAR KECIL DI ATAS)
+    ========================= */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 0;
+      line-height:0;
+    }
+    .navbar img{
+      width:auto;
+      max-width:min(1130px, 100%);
+      height:60px;       /* atur tinggi navbar di sini */
+      object-fit:contain;
+      display:block;
+    }
+
+    /* HERO SLIDESHOW */
+    .hero{
+      min-height:505px;
+      position:relative;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      text-align:center;
+      overflow: hidden;
+    }
+    .hero-slides {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+    }
+    .hero-slides img {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.08);
+      transition: opacity 1.2s ease-in-out, transform 4s ease-out;
+    }
+    .hero-slides img.active { opacity: 1; transform: scale(1); }
+    .hero-content { animation: fadeInUp 1.2s ease-out; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26,34,40,.52);
+      z-index: 1;
+    }
+    .hero-content{
+      position: relative;
+      z-index: 2;
+      width:min(790px, calc(100% - 32px));
+      margin:auto;
+      padding:58px 0 96px;
+    }
+    .hero h1{
+      margin:0 0 18px;
+      font-size:54px;
+      line-height:1.05;
+      letter-spacing:-1.9px;
+      font-weight:800;
+    }
+    .hero p{
+      max-width:700px;
+      margin:0 auto 25px;
+      color:rgba(255,255,255,.9);
+      font-size:15px;
+    }
+    .hero-actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      border-radius:28px;
+      padding:12px 22px;
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      transition:.25s ease;
+      border:1px solid transparent;
+    }
+    .btn-primary{background:var(--wine);color:#fff}
+    .btn-primary:hover{background:var(--wine-dark);transform:translateY(-2px)}
+
+    /* QUICK CARDS */
+    .quick-cards{
+      position:relative;
+      margin-top:-56px;
+      z-index:4;
+    }
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .quick-card{
+      background:#fff;
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      padding:27px 22px 25px;
+      transition: transform 0.3s ease;
+    }
+    .quick-card:hover { transform: translateY(-6px); }
+    .icon-circle{
+      width:48px;height:48px;margin:0 auto 17px;
+      border-radius:50%;
+      background:var(--wine-soft);
+      color:var(--wine);
+      display:grid;place-items:center;
+      font-size:22px;font-weight:800;
+    }
+    .quick-card h3{font-size:15px;margin:0 0 7px}
+    .quick-card p{font-size:12px;color:var(--text);margin:0}
+
+    /* EVENT STRIP */
+    .event-strip{padding:30px 0 0}
+    .event-box{
+      background:#f2ecee;
+      display:grid;
+      grid-template-columns:145px 1fr auto;
+      align-items:center;
+      gap:20px;
+      padding:17px 24px;
+      border-radius:3px;
+    }
+    .event-date{
+      background:var(--wine);
+      color:#fff;
+      border-radius:6px;
+      text-align:center;
+      padding:10px 18px;
+      font-weight:700;
+      line-height:1.15;
+    }
+    .event-date small{font-size:10px;display:block}
+    .event-date strong{font-size:24px}
+    .event-copy h4{margin:0 0 3px;font-size:17px}
+    .event-copy p{margin:0;color:var(--text);font-size:12px}
+    .small-btn{
+      background:var(--wine);color:#fff;
+      border:0;border-radius:18px;
+      padding:10px 20px;
+      font-size:11px;font-weight:700;
+      cursor: pointer;
+    }
+
+    section{padding:78px 0}
+    .section-heading{text-align:center;margin-bottom:45px}
+    .section-heading h2{
+      font-family:"Playfair Display",serif;
+      font-size:31px;
+      font-weight:500;
+      margin:0;
+      color:#5f3a44;
+    }
+    .section-heading .dash{
+      width:42px;height:2px;background:var(--wine);margin:11px auto 14px
+    }
+    .section-heading p{font-size:12px;color:var(--text);margin:0}
+
+    /* TENTANG */
+    .about-grid{
+      display:grid;
+      grid-template-columns: 0.85fr 2fr;
+      gap:50px;
+      align-items:center;
+    }
+    .about-text .section-title { font-size: 34px; margin-bottom: 20px; }
+    .about-text .section-copy { font-size: 15px; line-height: 1.8; color: var(--text); margin: 0; }
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-size:10px;
+      color:var(--wine);
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .section-title{
+      margin:0 0 16px;
+      font-size:32px;
+      line-height:1.2;
+      letter-spacing:-1px;
+      color:#4b2831;
+    }
+    .section-copy{
+      margin:0 0 16px;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .about-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: end;
+    }
+    .about-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .about-item img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
+    }
+    .foto-klik { cursor: zoom-in; }
+    .foto-klik:hover {
+      transform: scale(1.03);
+      box-shadow: 0 18px 40px rgba(67,30,39,.25);
+    }
+
+    .about-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .about-stat:hover {
+      transform: translateY(-4px);
+    }
+    .about-stat .num {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--biru);
+      background: #fff;
+      border: 2px solid #b8bccb;
+      border-radius: 999px;
+      padding: 6px 32px;
+      line-height: 1.1;
+      min-width: 150px;
+      text-align: center;
+      display: inline-block;
+      transition: 0.3s ease;
+    }
+    .about-stat:hover .num {
+      background: var(--wine);
+      color: #fff;
+      border-color: var(--wine);
+    }
+    .about-stat .label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--biru);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+    .about-stat:hover .label {
+      color: var(--wine-dark);
+    }
+
+    /* YOUTUBE */
+    .youtube-section { background: #fff; padding: 70px 0; }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(67,30,39,.18);
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 45px;
+    }
+    .video-grid .info h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      color: #6a4650;
+      margin: 0 0 14px;
+    }
+    .video-grid .info p {
+      font-size: 13px;
+      color: var(--text);
+      margin: 0 0 14px;
+    }
+    .video-list { list-style: none; padding: 0; margin: 20px 0 0; }
+    .video-list li {
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .video-list li:hover { transform: translateX(6px); color: var(--wine); }
+    .video-list li::before {
+      content: "▶";
+      color: var(--wine);
+      font-size: 12px;
+      background: var(--wine-soft);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    /* GALERI */
+    .programs{ background:linear-gradient(180deg,#fff 0,#fff 40%,#fdfafb 100%); }
+    .program-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      align-items:start;
+    }
+    .feature-card{
+      background:#fff;
+      border-radius:10px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card img{height:240px;object-fit:cover}
+    .feature-card .content{padding:20px}
+    .feature-card h4{font-size:16px;margin:5px 0 8px}
+    .feature-card p{font-size:12px;color:var(--text);margin:0 0 6px}
+    .feature-card a {color:var(--wine);font-size:12px;font-weight:600;}
+
+    /* BERITA */
+    .news-section { background: #faf7f8; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .news-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    .news-card:hover { transform: translateY(-4px); }
+    .news-card .date {
+      background: var(--wine);
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 14px;
+      display: inline-block;
+      border-radius: 0 0 8px 0;
+    }
+    .news-card .content { padding: 18px 20px 22px; }
+    .news-card h4 { font-size: 15px; margin: 6px 0 8px; }
+    .news-card p { font-size: 12px; color: var(--text); margin: 0; }
+
+    /* BERITA TERKINI (4 KARTU GAMBAR) */
+    .news-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .news-card-link {
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .news-card-link:hover {
+      transform: translateY(-6px);
+    }
+    .news-card-link .news-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.3s ease;
+      height: 100%;
+    }
+    .news-card-link:hover .news-card {
+      box-shadow: 0 18px 40px rgba(67,30,39,.2);
+    }
+    .news-card-link .news-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .news-card-link:hover .news-card img {
+      transform: scale(1.05);
+    }
+
+    /* COUNTER */
+    .counter-section {
+      background: linear-gradient(135deg, #6f2f40, #8d3e51);
+      color: #fff;
+      padding: 60px 0;
+    }
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .counter-grid .num {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .counter-grid .label {
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .9;
+    }
+
+    /* =========================
+   LAYANAN KAMI (SESUAI SCREENSHOT)
+========================= */
+    .layanan-section {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .layanan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .layanan-left {
+      width: 100%;
+    }
+    .layanan-left img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: block;
+    }
+    .layanan-right {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .layanan-right .layanan-text h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      color: #5f3a44;
+      margin: 0 0 12px;
+    }
+    .layanan-right .layanan-text p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.8;
+      margin: 0 0 10px;
+    }
+    .layanan-right .layanan-text a {
+      color: var(--wine);
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .layanan-right .layanan-text a:hover {
+      text-decoration: underline;
+    }
+    .layanan-thumbnails {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .layanan-thumbnails a {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .layanan-thumbnails a:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(67,30,39,.22);
+    }
+    .layanan-thumbnails img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* =========================
+   KONTAK / SARAN
+========================= */
+
+.kontak-section {
+  padding: 100px 0;
+  background: #f7f5ef;
+}
+
+.kontak-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* KIRI */
+
+.kontak-left {
+  width: 100%;
+}
+
+.section-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #a47b3c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.kontak-left h2 {
+  margin: 0 0 18px;
+  color: #27352d;
+  font-size: 44px;
+  line-height: 1.15;
+}
+
+.kontak-left p {
+  max-width: 550px;
+  margin-bottom: 30px;
+  color: #6b716d;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.kontak-img {
+  width: 100%;
+  height: 300px;
+  display: block;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(38, 48, 42, 0.12);
+}
+
+
+/* KANAN / FORM */
+
+.kontak-form {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(38, 48, 42, 0.09);
+}
+
+.kontak-form h3 {
+  margin: 0 0 8px;
+  color: #27352d;
+  font-size: 24px;
+}
+
+.form-desc {
+  margin: 0 0 30px;
+  color: #858b87;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.kontak-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #37433c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.kontak-form label span {
+  color: #b65a4c;
+}
+
+.kontak-form input,
+.kontak-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 22px;
+  padding: 15px;
+  border: 1px solid #dfe3df;
+  border-radius: 10px;
+  background: #fafbf9;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.kontak-form input {
+  height: 52px;
+}
+
+.kontak-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.kontak-form input:focus,
+.kontak-form textarea:focus {
+  border-color: #879b89;
+  background: #fff;
+}
+
+.kontak-form button {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: #27352d;
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.kontak-form button:hover {
+  background: #3b4d41;
+}
+
+.kontak-form button span {
+  font-size: 20px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .kontak-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+}
+    /* FOOTER */
+    footer{
+      margin-top:0;
+      background:#4d2832;
+      color:#fff;
+      padding:44px 0 25px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.3fr repeat(3,1fr);
+      gap:40px;
+    }
+    footer h4{margin:0 0 14px}
+    footer p,footer a{font-size:12px;color:rgba(255,255,255,.78);margin:6px 0;}
+    footer a:hover{color:#fff;}
+    .copyright{
+      margin-top:35px;padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.14);
+      font-size:11px;color:rgba(255,255,255,.62);
+      text-align:center;
+    }
+
+    .to-top{
+      position:fixed;
+      right:22px;bottom:22px;
+      width:38px;height:38px;border-radius:5px;
+      border:none;background:var(--wine);color:#fff;
+      display:grid;place-items:center;
+      cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.18);
+      z-index:20;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    .to-top.visible { opacity: 1; visibility: visible; }
+    .to-top:hover { transform: translateY(-4px); background: var(--wine-dark); }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      cursor: zoom-out;
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox.show { display: flex; }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      animation: zoomIn 0.3s ease;
+      cursor: default;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: #fff;
+      color: #333;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      line-height: 1;
+    }
+    .lightbox .close-btn:hover {
+      background: var(--wine);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .quick-grid,.about-grid,.program-grid,.news-grid,.video-grid,.kontak-grid,.layanan-grid{grid-template-columns:1fr}
+      .counter-grid { grid-template-columns: repeat(2, 1fr); }
+      .program-grid,.news-grid{gap: 30px;}
+      .about-gallery { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .about-item img { height: 220px; }
+      .about-stat .num { font-size: 28px; padding: 4px 20px; min-width: 100px; }
+      .about-stat .label { font-size: 12px; }
+      .news-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .layanan-thumbnails { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 28px,1130px)}
+      .topbar{font-size:10px}
+      .navbar img { height: 45px; }
+      .hero{min-height:520px}
+      .hero h1{font-size:36px}
+      .hero p{font-size:13px}
+      .quick-grid{gap:14px}
+      .quick-cards{margin-top:-38px}
+      .event-box{grid-template-columns:1fr;text-align:center}
+      .event-box .small-btn{grid-column:auto;justify-self:center}
+      section{padding:58px 0}
+      .section-title{font-size:28px}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .counter-grid { grid-template-columns: 1fr 1fr; }
+      .counter-grid .num { font-size: 32px; }
+      .visitor-stats {flex-direction: column;}
+      .about-gallery { grid-template-columns: 1fr; gap: 25px; }
+      .about-item img { height: 240px; }
+      .about-stat .num { font-size: 32px; padding: 6px 28px; }
+      .about-stat .label { font-size: 13px; }
+      .news-grid-4 { grid-template-columns: 1fr; }
+      .layanan-thumbnails { grid-template-columns: 1fr; }
+    }
+    @media(max-width:420px){
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================
+       NAVBAR (GAMBAR KECIL DI ATAS)
+  ========================= -->
+  <nav class="navbar">
+    <img src="navbar.jpg" alt="Navbar Sibaya">
+  </nav>
+
+  <!-- HERO SLIDESHOW -->
+  <header class="hero" id="home">
+    <div class="hero-slides">
+      <img src="slide1.jpg" alt="Slide 1" class="active">
+      <img src="slide2.jpg" alt="Slide 2">
+      <img src="slide3.jpg" alt="Slide 3">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>SIBAYA<br>KOTA BALIKPAPAN</h1>
+      <p>
+        SIBAYA (Sistem Informasi Budaya Kota Balikpapan)<br>
+        Platform Digital Untuk Pelestarian Budaya Pada Dinas Pendidikan dan Kebudayaan Kota Balikpapan
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#profil">SALAM BUDAYA, LESTARIKAN ... !</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK CARDS -->
+  <div class="quick-cards">
+    <div class="container quick-grid">
+      <article class="quick-card reveal delay-1">
+        <div class="icon-circle">🏛️</div>
+        <h3>Cagar Budaya Terlindungi</h3>
+        <p>Pendataan dan pelestarian situs cagar budaya di seluruh wilayah Balikpapan.</p>
+      </article>
+      <article class="quick-card reveal delay-2">
+        <div class="icon-circle">🎭</div>
+        <h3>Sanggar Budaya Aktif</h3>
+        <p>Pembinaan seni tari, musik, teater, dan kerajinan tradisional masyarakat.</p>
+      </article>
+      <article class="quick-card reveal delay-3">
+        <div class="icon-circle">🤝</div>
+        <h3>Kolaborasi Mitra</h3>
+        <p>Bersama komunitas, akademisi, dan pelaku budaya membangun ekosistem budaya.</p>
+      </article>
+    </div>
+  </div>
+
+  <!-- TENTANG -->
+  <section id="profil">
+    <div class="container about-grid">
+      <div class="about-text reveal-left">
+        <div class="eyebrow">Tentang Kami</div>
+        <h2 class="section-title">Tentang Sibaya</h2>
+        <p class="section-copy">
+          Sibaya adalah platform digital yang mengelola dan melestarikan
+          budaya Balikpapan secara berkala, terstruktur dan berkelanjutan.
+        </p>
+      </div>
+
+      <div class="about-gallery reveal-right">
+        <div class="about-item">
+          <img src="tentang1.jpg" alt="Cagar Budaya" class="foto-klik" onclick="openLightbox('tentang1.jpg')">
+          <a href="cagar-budaya.html" class="about-stat">
+            <span class="num">139</span>
+            <span class="label">Cagar Budaya</span>
+          </a>
+        </div>
+        <div class="about-item">
+          <img src="tentang2.jpg" alt="Sanggar Seni" class="foto-klik" onclick="openLightbox('tentang2.jpg')">
+          <a href="sanggar-binaan.html" class="about-stat">
+            <span class="num">114</span>
+            <span class="label">Sanggar Seni</span>
+          </a>
+        </div>
+        <div class="about-item">
+          <img src="tentang3.jpg" alt="Mitra Kebudayaan" class="foto-klik" onclick="openLightbox('tentang3.jpg')">
+          <a href="mitra-kebudayaan.html" class="about-stat">
+            <span class="num">3</span>
+            <span class="label">Mitra Kebudayaan</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section class="youtube-section" id="video">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Video Profil Budaya</h2>
+        <div class="dash"></div>
+        <p>Saksikan dokumentasi dan liputan kegiatan budaya Kota Balikpapan.</p>
+      </div>
+
+      <div class="video-wrapper reveal-zoom">
+        <iframe 
+          src="https://www.youtube.com/embed/uBnzYrkCxmk?si=CD-KbZKFbhE7_fu4" 
+          title="Video Profil SIBAYA"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="video-grid" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+        <div class="info reveal-left" style="max-width: 700px; margin: 0 auto;">
+          <h3>Dokumentasi Budaya Balikpapan</h3>
+          <p>
+            Melalui kanal YouTube resmi SIBAYA, kami menghadirkan berbagai dokumentasi
+            pertunjukan seni, ritual adat, dan kegiatan pelestarian budaya yang
+            dilaksanakan di Kota Balikpapan.
+          </p>
+          <p>
+            Ikuti terus channel kami untuk melihat cerita di balik layar, wawancara
+            dengan pelaku budaya, dan liputan acara budaya tahunan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="programs" id="cagar-budaya">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Galeri</h2>
+        <div class="dash"></div>
+        <p>Potret budaya Balikpapan dalam momen berharga</p>
+      </div>
+
+      <div class="program-grid">
+        <article class="feature-card reveal delay-1">
+          <img src="galeri1.jpg" alt="Bantuan Alat Kesenian">
+          <div class="content">
+            <h4>Bantuan Alat Kesenian</h4>
+          </div>
+        </article>
+        <article class="feature-card reveal delay-2">
+          <img src="galeri2.jpg" alt="Gebyar Seni dan Halal Bihalal">
+          <div class="content">
+            <h4>Gebyar Seni dan Halal Bihalal</h4>
+          </div>
+        </article>
+        <article class="feature-card reveal delay-3">
+          <img src="galeri3.jpg" alt="Pekan Kebudayaan Daerah Tahun 2025">
+          <div class="content">
+            <h4>Pekan Kebudayaan Daerah Tahun 2025</h4>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTER STATISTIK -->
+  <section class="counter-section">
+    <div class="container counter-grid">
+      <div class="reveal delay-1">
+        <span class="num" data-target="150">0</span><span class="num">+</span>
+        <span class="label">Cagar Budaya</span>
+      </div>
+      <div class="reveal delay-2">
+        <span class="num" data-target="45">0</span><span class="num">+</span>
+        <span class="label">Sanggar Binaan</span>
+      </div>
+      <div class="reveal delay-3">
+        <span class="num" data-target="1200">0</span><span class="num">+</span>
+        <span class="label">Pelaku Budaya</span>
+      </div>
+      <div class="reveal delay-4">
+        <span class="num" data-target="80">0</span><span class="num">+</span>
+        <span class="label">Kegiatan / Tahun</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BERITA TERKINI -->
+  <section class="news-section" id="mitra">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Berita Terkini</h2>
+        <div class="dash"></div>
+        <p>Informasi terkini seputar kegiatan kebudayaan di Kota Balikpapan.</p>
+      </div>
+
+      <div class="news-grid-4">
+        <a href="berita-budaya.html" class="news-card-link reveal delay-1">
+          <article class="news-card">
+            <img src="berita1.jpg" alt="Berita 1">
+          </article>
+        </a>
+        <a href="berita-budaya.html" class="news-card-link reveal delay-2">
+          <article class="news-card">
+            <img src="berita2.jpg" alt="Berita 2">
+          </article>
+        </a>
+        <a href="berita-budaya.html" class="news-card-link reveal delay-3">
+          <article class="news-card">
+            <img src="berita3.jpg" alt="Berita 3">
+          </article>
+        </a>
+        <a href="berita-budaya.html" class="news-card-link reveal delay-4">
+          <article class="news-card">
+            <img src="berita4.jpg" alt="Berita 4">
+          </article>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       LAYANAN KAMI (SESUAI SCREENSHOT)
+  ========================= -->
+  <section class="layanan-section" id="layanan">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Layanan Kami</h2>
+        <div class="dash"></div>
+        <p>Sibaya mendukung pelestarian budaya Balikpapan secara digital.</p>
+      </div>
+
+      <div class="layanan-grid">
+        <!-- KIRI: GAMBAR BESAR DASHBOARD -->
+        <div class="layanan-left reveal-left">
+          <img src="layanan-dashboard.jpg" alt="Dashboard Statistik Layanan">
+        </div>
+
+        <!-- KANAN: TEKS PENDATAAN + 2 GAMBAR -->
+        <div class="layanan-right reveal-right">
+          <div class="layanan-text">
+            <h3>Pendataan</h3>
+            <p>
+              Pendataan Guru Kesenian dan Ekskul di Sekolah Wilayah Kota Balikpapan.
+              Klik link berikut ini:
+            </p>
+            <p>
+              <a href="https://bit.ly/4svLpNj" target="_blank">https://bit.ly/4svLpNj</a>
+            </p>
+          </div>
+          <div class="layanan-thumbnails">
+            <!-- DATA POKOK KEBUDAYAAN -> LINK KE DAPOBUD -->
+            <a href="https://dapobud.kemenbud.go.id/" target="_blank">
+              <img src="layanan-datapokok.jpg" alt="Data Pokok Kebudayaan">
+            </a>
+            <!-- LAPOR / WHISTLEBLOWER -->
+            <a href="#" target="_blank">
+              <img src="layanan-lapor.jpg" alt="Lapor & Whistleblower">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- KONTAK / SARAN -->
+<section class="kontak-section" id="contact">
+  <div class="container kontak-grid">
+
+    <!-- KIRI -->
+    <div class="kontak-left reveal-left">
+      <span class="section-label">HUBUNGI KAMI</span>
+
+      <h2>Kontak / Saran</h2>
+
+      <p>
+        Hubungi kami untuk informasi lebih lanjut dan sampaikan
+        saran Anda tentang budaya Kota Balikpapan.
+      </p>
+
+      <img 
+        src="kontak-img.jpg" 
+        alt="Budaya Kota Balikpapan"
+        class="kontak-img"
+      >
+    </div>
+
+    <!-- KANAN -->
+    <div class="kontak-form reveal">
+      <h3>Sampaikan Pesan Anda</h3>
+      <p class="form-desc">
+        Kami terbuka terhadap pertanyaan, kritik, dan saran dari Anda.
+      </p>
+
+      <form>
+        <label for="nama">Nama / Email</label>
+        <input 
+          type="text" 
+          id="nama"
+          placeholder="Masukkan nama atau email Anda"
+        >
+
+        <label for="pesan">Pesan Anda <span>*</span></label>
+        <textarea 
+          id="pesan"
+          placeholder="Tulis pesan atau saran Anda di sini..."
+        ></textarea>
+
+        <button type="submit">
+          Kirim Pesan
+          <span>→</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="reveal delay-1">
+        <h4>Kontak</h4>
+        <p>Hubungi kami untuk informasi lebih lanjut</p>
+        <p>📧 aryaqu007@gmail.com</p>
+        <p>📞 +628125416353</p>
+        <p>🌐 info@sibayabalikpapan.online</p>
+      </div>
+      <div class="reveal delay-2">
+        <h4>Email</h4>
+        <p>aryaqu007@gmail.com</p>
+      </div>
+      <div class="reveal delay-3">
+        <h4>Telepon</h4>
+        <p>+628125416353</p>
+      </div>
+      <div class="reveal delay-4">
+        <h4>Link Terkait</h4>
+        <p><a href="https://dapobud.kemenbud.go.id" target="_blank">https://dapobud.kemenbud.go.id</a></p>
+      </div>
+    </div>
+    <div class="container copyright">
+      © 2026. All rights reserved. Sibaya Balikpapan.
+    </div>
+  </footer>
+
+  <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+  <!-- LIGHTBOX PREVIEW -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox(event)">&times;</button>
+    <img id="lightboxImg" src="" alt="Preview" onclick="event.stopPropagation()">
+  </div>
+
+  <script>
+    // ====== SLIDESHOW OTOMATIS ======
+    const slides = document.querySelectorAll('.hero-slides img');
+    let currentSlide = 0;
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+    setInterval(nextSlide, 4000);
+
+    // ====== ANIMASI SCROLL ======
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ====== COUNTER ANGKA ======
+    const counters = document.querySelectorAll('.counter-grid .num[data-target]');
+    let counterStarted = false;
+    function animateCounters() {
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const updateCounter = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = Math.floor(current).toLocaleString('id-ID');
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.textContent = target.toLocaleString('id-ID');
+          }
+        };
+        updateCounter();
+      });
+    }
+    const counterSection = document.querySelector('.counter-section');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !counterStarted) {
+          counterStarted = true;
+          animateCounters();
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    counterObserver.observe(counterSection);
+
+    // ====== TOMBOL TO-TOP ======
+    const toTopBtn = document.querySelector('.to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        toTopBtn.classList.add('visible');
+      } else {
+        toTopBtn.classList.remove('visible');
+      }
+    });
+
+    // ====== LIGHTBOX PREVIEW FOTO ======
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e) e.stopPropagation();
+      document.getElementById('lightbox').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    // Tutup pakai ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>

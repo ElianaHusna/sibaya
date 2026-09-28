@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Tugu Australia - SIBAYA Kota Balikpapan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#8d3e51;
+      --wine-dark:#6f2f40;
+      --wine-soft:#f4e9ec;
+      --shadow:0 12px 32px rgba(67,30,39,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      color:#40242b;
+      background:#fff;
+      line-height:1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('batik.png');
+      background-repeat: repeat;
+      background-size: 320px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    img{display:block;width:100%}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1130px, calc(100% - 42px));margin:auto}
+
+    .detail-section {
+      padding: 60px 0 80px;
+      background: transparent;
+    }
+    .detail-inner {
+      background: #fff;
+      border-radius: 12px;
+      padding: 45px 55px;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-inner h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 800;
+      margin: 0 0 22px;
+      color: #111;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+    }
+
+    .detail-inner p {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin: 0 0 16px;
+      text-align: justify;
+    }
+
+    .foto-besar {
+      width: 100%;
+      margin: 30px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .foto-besar img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .section-block {
+      margin-top: 45px;
+    }
+    .section-block h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #111;
+      margin: 0 0 18px;
+      letter-spacing: -1px;
+    }
+
+    .list-bullet {
+      list-style: disc;
+      padding-left: 22px;
+      margin: 0 0 20px;
+    }
+    .list-bullet li {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.85;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    .lokasi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 35px;
+      align-items: start;
+    }
+    .lokasi-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+    }
+    .lokasi-text strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #111;
+      font-weight: 700;
+    }
+    .lokasi-text p {
+      margin: 0 0 12px;
+      text-align: justify;
+    }
+    .lokasi-map {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,.10);
+      height: 320px;
+    }
+    .lokasi-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .link-download {
+      display: inline-block;
+      color: var(--wine);
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 6px;
+      word-break: break-all;
+      text-decoration: underline;
+      line-height: 1.6;
+    }
+    .link-download:hover {
+      color: var(--wine-dark);
+    }
+
+    .galeri-title {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #111;
+      margin: 50px 0 30px;
+      letter-spacing: -1px;
+    }
+    .galeri-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 30px 0;
+    }
+    .galeri-item {
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f0f0f0;
+      box-shadow: 0 6px 18px rgba(67,30,39,.12);
+    }
+    .galeri-item img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .galeri-item:hover img {
+      transform: scale(1.05);
+    }
+    .galeri-caption {
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      margin: 15px 0 25px;
+      font-weight: 500;
+    }
+
+    .btn-back-wrap {
+      text-align: center;
+      margin-top: 55px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wine);
+      color: #fff;
+      padding: 13px 30px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(141,62,81,.3);
+    }
+    .btn-back:hover {
+      background: var(--wine-dark);
+      transform: translateY(-2px);
+    }
+
+    footer{
+      margin-top:0;
+      background:#4d2832;
+      color:#fff;
+      padding:44px 0 25px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.3fr repeat(3,1fr);
+      gap:40px;
+    }
+    footer h4{margin:0 0 14px}
+    footer p,footer a{font-size:12px;color:rgba(255,255,255,.78);margin:6px 0;}
+    footer a:hover{color:#fff;}
+    .copyright{
+      margin-top:35px;padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.14);
+      font-size:11px;color:rgba(255,255,255,.62);
+      text-align:center;
+    }
+
+    @media(max-width:900px){
+      .detail-inner { padding: 30px 25px; }
+      .detail-inner h1 { font-size: 34px; }
+      .section-block h2,
+      .galeri-title { font-size: 28px; }
+      .foto-besar img { height: 320px; }
+      .lokasi-grid { grid-template-columns: 1fr; }
+      .galeri-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 28px,1130px)}
+      .detail-inner { padding: 22px 18px; }
+      .detail-inner h1 { font-size: 26px; }
+      .section-block h2,
+      .galeri-title { font-size: 22px; }
+      .detail-inner p,
+      .list-bullet li { font-size: 13.5px; }
+      .foto-besar img { height: 220px; }
+      .galeri-grid { grid-template-columns: 1fr; }
+      .galeri-item img { height: 220px; }
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <section class="detail-section">
+    <div class="container">
+      <div class="detail-inner">
+
+        <h1>Tugu Australia</h1>
+
+        <p>
+          Tugu bersejarah ini dilindungi oleh undang-undang sebagai <strong>Struktur Cagar Budaya</strong>. Sebagai Penetapan Tugu Australia sebagai Struktur Cagar Budaya Peringkat Kota.
+        </p>
+        <p>
+          Di area Jalan Jendral Sudirman RT.019 Kelurahan Prapatan Kecamatan Balikpapan Kota Terdapat Struktur Cagar Budaya Berupa Tugu Australia Sebagai Cagar Budaya Peringkat Kota Di Wilayah Kota Balikpapan.
+        </p>
+
+        <div class="foto-besar">
+          <img src="cagar6-hero.jpg" alt="Tugu Australia">
+        </div>
+
+        <div class="section-block">
+          <h2>Lokasi</h2>
+          <div class="lokasi-grid">
+            <div class="lokasi-text">
+              <strong>Balikpapan Kota, Jalan Jendral Sudirman RT.019 Kelurahan Prapatan Kecamatan Balikpapan Kota.</strong>
+              <p>
+                Situs ini berada di area Jalan Perkantoran Tak Jauh dari Areal Keramalan Lapangan Merdeka dan Pantai Kilang.
+              </p>
+            </div>
+            <div class="lokasi-map">
+              <iframe src="https://www.google.com/maps?q=Tugu+Australia+Balikpapan&output=embed" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-block">
+          <h2>Sejarah</h2>
+          <p>
+            Pada bulan Mei hingga Agustus 1945, pasukan Australia bertempur untuk membebaskan Pulau Kalimantan dari pendudukan Jepang yang telah berlangsung selama lebih 3 (tiga) tahun. Dalam serangan ambil yang terencana dan terkoordinasi dengan baik terhadap Tarakan, Teluk Brunei, dan Balikpapan, pasukan Australia berhasil mengalahkan pasukan Jepang yang siap siaga dan gigih bertahan.
+          </p>
+          <p>
+            Pasukan udara dan laut Australia serta Amerika Serikat memberikan dukungan dekat kepada pasukan darat Australia. Ketika Balikpapan diserbu, kota itu merupakan pelabuhan minyak utama di Asia Timur, tetapi pada saat pentingnya strategis militer telah berkurang. Pada tanggal 1 Juli 1945, pasukan Australia melancarkan operasi amfibi yang terbesar dengan menyebur pantai di selatan Balikpapan. Pengeboman pendahuluan 20 hari oleh sekutu telah menghancurkan pertahanan pantai Jepang, sehingga pada malam hari pasukan Australia dapat maju 2 kilometer ke arah pedalaman.
+          </p>
+        </div>
+
+        <div class="section-block">
+          <h2>Wisata</h2>
+          <ul class="list-bullet">
+            <li>Lokasi meriam kini menjadi <strong>objek wisata sejarah gratis</strong>, sering dikunjungi oleh pelajar, peneliti, dan wisatawan lokal yang ingin belajar tentang jejak Perang Dunia II di Kalimantan.</li>
+            <li>Pemandangan dari lokasi ini juga menawarkan panorama Kota Balikpapan.</li>
+          </ul>
+          <p>
+            Link download Penetapan Tugu Australia Sebagai Struktur Cagar Budaya Kota Balikpapan
+          </p>
+          <a href="https://drive.google.com/file/d/1yD2VfPPBqNIVzxs8iLudIv6T0S2re/view?usp=drive_link" target="_blank" class="link-download">
+            https://drive.google.com/file/d/1yD2VfPPBqNIVzxs8iLudIv6T0S2re/view
+          </a>
+        </div>
+
+        <h2 class="galeri-title">Galeri</h2>
+
+        <div class="galeri-grid">
+          <div class="galeri-item"><img src="cagar6a.jpg" alt="Tugu Australia 1"></div>
+          <div class="galeri-item"><img src="cagar6b.jpg" alt="Tugu Australia 2"></div>
+          <div class="galeri-item"><img src="cagar6c.jpg" alt="Tugu Australia 3"></div>
+          <div class="galeri-item"><img src="cagar6d.jpg" alt="Tugu Australia 4"></div>
+          <div class="galeri-item"><img src="cagar6e.jpg" alt="Tugu Australia 5"></div>
+          <div class="galeri-item"><img src="cagar6f.jpg" alt="Tugu Australia 6"></div>
+        </div>
+        <div class="galeri-caption">Copyright by Bidang Budaya DISDIKBUD Kota Balikpapan</div>
+
+        <div class="btn-back-wrap">
+          <a href="cagar-budaya.html" class="btn-back">← Kembali ke Daftar Cagar Budaya</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>Kontak</h4>
+        <p>Hubungi kami untuk informasi lebih lanjut</p>
+        <p>📧 aryaqu007@gmail.com</p>
+        <p>📞 +628125416353</p>
+        <p>🌐 info@sibayabalikpapan.online</p>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>aryaqu007@gmail.com</p>
+      </div>
+      <div>
+        <h4>Telepon</h4>
+        <p>+628125416353</p>
+      </div>
+      <div>
+        <h4>Link Terkait</h4>
+        <p><a href="https://dapobud.kemenbud.go.id" target="_blank">https://dapobud.kemenbud.go.id</a></p>
+      </div>
+    </div>
+    <div class="container copyright">
+      © 2026. All rights reserved. Sibaya Balikpapan.
+    </div>
+  </footer>
+
+</body>
+</html>

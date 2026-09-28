@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Cagar Budaya — SIBAYA Kota Balikpapan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#7a1425;
+    --wine-dark:#4a0812;
+    --wine-deep:#320510;
+    --wine-light:#9c2a3d;
+    --wine-soft:#f6e8eb;
+    --gold:#c9a24a;
+    --ink:#2a161c;
+    --text:#6d5a60;
+    --muted:#a69a9e;
+    --line:#ece0e3;
+    --bg:#fdfbfb;
+    --white:#fff;
+    --shadow-sm:0 4px 14px rgba(74,8,18,.06);
+    --shadow:0 14px 40px rgba(74,8,18,.10);
+    --shadow-lg:0 28px 70px rgba(74,8,18,.16);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:url('batik.png');
+    background-repeat:repeat;
+    background-size:340px;
+    opacity:.045;
+    pointer-events:none;
+    z-index:0;
+  }
+  img{display:block;width:100%;height:auto}
+  a{text-decoration:none;color:inherit}
+  button{font-family:inherit;cursor:pointer;border:0;background:none}
+  .container{width:min(1180px,calc(100% - 48px));margin:auto;position:relative;z-index:1}
+  ::selection{background:var(--wine);color:#fff}
+
+  /* PROGRESS BAR */
+  .progress-bar{
+    position:fixed;top:0;left:0;
+    height:3px;width:0%;
+    background:linear-gradient(90deg,var(--wine),var(--gold));
+    z-index:9999;
+    transition:width .15s ease;
+  }
+
+  /* TOPBAR */
+  .topbar{
+    background:var(--wine-deep);
+    color:rgba(255,255,255,.9);
+    font-size:11.5px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:.06em;
+    position:relative;z-index:2;
+  }
+  .topbar span{opacity:.85}
+
+  /* NAVBAR */
+  .navbar{
+    position:sticky;top:0;z-index:100;
+    background:var(--wine);
+    color:#fff;
+    transition:all .4s var(--ease);
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+  }
+  .navbar.scrolled{
+    box-shadow:0 8px 26px rgba(74,8,18,.22);
+    background:rgba(122,20,37,.97);
+    backdrop-filter:saturate(180%) blur(8px);
+  }
+  .nav-inner{
+    min-height:74px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:28px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    font-family:'Playfair Display',serif;
+    font-size:22px;font-weight:700;letter-spacing:.5px;
+  }
+  .brand-mark{
+    width:42px;height:42px;border-radius:10px;
+    background:linear-gradient(135deg,#c9a24a,#e7c773);
+    color:var(--wine-deep);
+    display:grid;place-items:center;
+    font-family:'Playfair Display',serif;
+    font-weight:800;font-size:17px;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+  }
+  .brand img{height:42px;width:auto;border-radius:8px}
+  .brand-sub{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:9.5px;font-weight:500;
+    letter-spacing:2.5px;
+    color:rgba(255,255,255,.7);
+    margin-top:-2px;
+  }
+  .nav-links{
+    display:flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:500;
+  }
+  .nav-links a{
+    padding:9px 14px;border-radius:8px;
+    white-space:nowrap;
+    color:rgba(255,255,255,.88);
+    transition:all .25s ease;position:relative;
+  }
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+  .nav-links a.active{color:#fff;background:rgba(255,255,255,.16)}
+  .nav-links a.active::after{
+    content:"";position:absolute;
+    left:50%;bottom:2px;transform:translateX(-50%);
+    width:18px;height:2px;
+    background:var(--gold);border-radius:2px;
+  }
+  .hamburger{
+    display:none;width:44px;height:44px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:10px;color:#fff;
+    font-size:20px;
+    align-items:center;justify-content:center;
+  }
+
+  /* PAGE HERO */
+  .page-hero{
+    position:relative;
+    min-height:420px;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;color:#fff;
+    background:
+      linear-gradient(rgba(44,4,14,.78), rgba(44,4,14,.78)),
+      url('cagar-hero.jpg') center/cover no-repeat;
+    overflow:hidden;
+  }
+  .page-hero::before{
+    content:"";
+    position:absolute;top:-100px;right:-100px;
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(201,162,74,.12),transparent 70%);
+    pointer-events:none;
+  }
+  .page-hero-content{
+    position:relative;z-index:2;
+    max-width:880px;
+    padding:70px 20px;
+  }
+  .page-hero .eyebrow{
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:20px;
+    display:inline-block;
+  }
+  .page-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(38px,6vw,64px);
+    font-weight:800;
+    line-height:1.05;
+    letter-spacing:-2px;
+    margin:0 0 20px;
+    text-shadow:0 4px 30px rgba(0,0,0,.5);
+  }
+  .page-hero h1 em{font-style:italic;color:var(--gold);font-weight:500}
+  .page-hero p{
+    font-size:15.5px;
+    color:rgba(255,255,255,.9);
+    line-height:1.75;
+    max-width:680px;margin:0 auto;
+  }
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.active{opacity:1;transform:translateY(0)}
+  .reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-left.active{opacity:1;transform:translateX(0)}
+  .reveal-right{opacity:0;transform:translateX(60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-right.active{opacity:1;transform:translateX(0)}
+  .reveal-zoom{opacity:0;transform:scale(.92);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-zoom.active{opacity:1;transform:scale(1)}
+  .delay-1{transition-delay:.05s}
+  .delay-2{transition-delay:.10s}
+  .delay-3{transition-delay:.15s}
+  .delay-4{transition-delay:.20s}
+  .delay-5{transition-delay:.25s}
+  .delay-6{transition-delay:.30s}
+  .delay-7{transition-delay:.35s}
+  .delay-8{transition-delay:.40s}
+  .delay-9{transition-delay:.45s}
+  .delay-10{transition-delay:.50s}
+  .delay-11{transition-delay:.55s}
+  .delay-12{transition-delay:.60s}
+
+  /* SECTION */
+  section{padding:100px 0;position:relative}
+
+  /* CAGAR GRID */
+  .cagar-section{padding:90px 0 60px}
+  .cagar-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .cagar-item{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+    display:block;
+    color:inherit;
+    border:1px solid var(--line);
+  }
+  .cagar-item:hover{
+    transform:translateY(-8px);
+    box-shadow:var(--shadow-lg);
+    border-color:var(--gold);
+  }
+  .cagar-item .img-wrap{
+    position:relative;
+    aspect-ratio:4/3;
+    overflow:hidden;
+  }
+  .cagar-item img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform .8s var(--ease);
+  }
+  .cagar-item:hover img{transform:scale(1.06)}
+  .cagar-item .img-wrap::after{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 50%,rgba(44,4,14,.5));
+    opacity:0;
+    transition:opacity .4s ease;
+  }
+  .cagar-item:hover .img-wrap::after{opacity:1}
+  .cagar-item .content{
+    padding:20px 22px 24px;
+  }
+  .cagar-item h4{
+    font-family:'Playfair Display',serif;
+    font-size:16.5px;
+    font-weight:700;
+    margin:0 0 8px;
+    color:var(--wine-deep);
+    line-height:1.3;
+    transition:color .3s ease;
+  }
+  .cagar-item:hover h4{color:var(--wine)}
+  .cagar-item p{
+    font-size:12.5px;
+    color:var(--text);
+    margin:0;
+    line-height:1.6;
+  }
+
+  /* JUDUL BAWAH */
+  .cagar-title-wrap{
+    text-align:center;
+    padding:20px 0 0;
+    margin-bottom:20px;
+  }
+  .cagar-title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,4vw,44px);
+    font-weight:700;
+    color:var(--wine-deep);
+    letter-spacing:-1px;
+    margin:0 0 16px;
+    line-height:1.15;
+  }
+  .cagar-title-sub{
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--wine);
+    font-weight:600;
+    display:inline-block;
+    margin-bottom:12px;
+  }
+  .cagar-title-dash{
+    width:48px;height:2px;
+    background:var(--gold);
+    margin:16px auto 0;
+    border-radius:2px;
+  }
+
+  /* VIDEO */
+  .video-section{
+    padding:60px 0 100px;
+    background:#fdfbfb;
+  }
+  .video-yt-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+  }
+  .video-yt-item{
+    position:relative;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    aspect-ratio:16/9;
+    background:#000;
+    border:1px solid var(--line);
+    transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+  }
+  .video-yt-item:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow-lg);
+  }
+  .video-yt-item iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    border:0;
+  }
+
+  /* FOOTER */
+  footer{
+    background:#1a050a;
+    color:rgba(255,255,255,.75);
+    padding:70px 0 30px;
+    position:relative;
+  }
+  .footer-top{
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1.2fr;
+    gap:50px;
+    padding-bottom:50px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:20px;
+  }
+  .footer-brand-mark{
+    width:42px;height:42px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#c9a24a,#e7c773);
+    color:var(--wine-deep);
+    display:grid;place-items:center;
+    font-family:'Playfair Display',serif;
+    font-weight:800;font-size:17px;
+  }
+  .footer-brand-name{
+    font-family:'Playfair Display',serif;
+    font-size:20px;font-weight:700;color:#fff;
+  }
+  footer h4{
+    font-size:12px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 20px;
+  }
+  footer p,footer a{
+    font-size:13px;
+    line-height:1.9;
+    color:rgba(255,255,255,.7);
+    transition:color .25s ease;
+  }
+  footer a:hover{color:var(--gold)}
+  .footer-copy{
+    text-align:center;padding-top:30px;
+    font-size:12px;
+    color:rgba(255,255,255,.4);
+    letter-spacing:.5px;
+  }
+
+  /* TO-TOP */
+  .to-top{
+    position:fixed;
+    right:26px;bottom:26px;
+    width:46px;height:46px;
+    border-radius:50%;
+    background:var(--wine);
+    color:#fff;
+    display:grid;place-items:center;
+    z-index:200;
+    opacity:0;visibility:hidden;
+    transform:translateY(20px);
+    transition:all .4s var(--ease);
+    box-shadow:0 12px 26px rgba(74,8,18,.35);
+    font-size:18px;
+  }
+  .to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+  .to-top:hover{
+    background:var(--gold);
+    color:var(--wine-deep);
+    transform:translateY(-4px);
+    box-shadow:0 18px 34px rgba(201,162,74,.4);
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){
+    .cagar-grid{grid-template-columns:repeat(2,1fr)}
+    .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+  }
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .hamburger{display:flex}
+    .nav-links.open{
+      display:flex;position:absolute;
+      top:74px;left:0;right:0;
+      background:var(--wine-deep);
+      flex-direction:column;align-items:stretch;gap:0;
+      padding:14px 20px 22px;
+      box-shadow:0 20px 40px rgba(0,0,0,.3);
+    }
+    .nav-links.open a{padding:14px 12px;border-radius:8px}
+    .page-hero{min-height:340px}
+    .video-yt-grid{grid-template-columns:1fr}
+    section{padding:80px 0}
+  }
+  @media(max-width:600px){
+    .container{width:min(100% - 32px,1180px)}
+    .topbar{font-size:10px;letter-spacing:.03em}
+    .brand{font-size:18px}
+    .brand-mark{width:38px;height:38px;font-size:15px}
+    .nav-inner{min-height:64px}
+    .nav-links.open{top:64px}
+    .cagar-grid{grid-template-columns:1fr;gap:24px}
+    .footer-top{grid-template-columns:1fr;gap:34px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progressBar"></div>
+
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <img src="logo-sibaya.png" alt="Logo Sibaya" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+        <span class="brand-mark" style="display:none">SB</span>
+        <span>
+          SIBAYA
+          <span class="brand-sub">SISTEM INFORMASI BUDAYA</span>
+        </span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="cagar-budaya.html">Cagar Budaya</a>
+        <a href="sanggar-binaan.html">Sanggar Binaan</a>
+        <a href="mitra-kebudayaan.html">Mitra Kebudayaan</a>
+        <a href="objek-pemajuan.html">Obyek Pemajuan</a>
+        <a href="pelatihan.html">Pelatihan &amp; Pembinaan</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <div class="page-hero-content">
+      <span class="eyebrow">Warisan Budaya</span>
+      <h1>Cagar <em>Budaya</em></h1>
+      <p>
+        Cagar Budaya adalah warisan budaya bersifat kebendaan yang berada di darat dan/atau di air yang
+        perlu dilestarikan karena memiliki nilai penting bagi sejarah, ilmu pengetahuan, pendidikan, agama,
+        dan/atau kebudayaan.
+      </p>
+    </div>
+  </header>
+
+  <!-- GALERI CAGAR BUDAYA -->
+  <section class="cagar-section">
+    <div class="container">
+      <div class="cagar-grid">
+
+        <a href="cagar1.html" class="cagar-item reveal delay-1">
+          <div class="img-wrap"><img src="cagar1.jpg" alt="Meriam Jepang 01 Baru Tengah"></div>
+          <div class="content">
+            <h4>Meriam Jepang 01 Baru Tengah</h4>
+            <p>Lokasi dari Benda Cagar Budaya Kondisi Terawat ini beralamat Jalan Sultan Hasanuddin, Kel. Baru Tengah Kec. Balikpapan Barat Kota Balikpapan Sidadadi Baru Ulu.</p>
+          </div>
+        </a>
+
+        <a href="cagar2.html" class="cagar-item reveal delay-2">
+          <div class="img-wrap"><img src="cagar2.jpg" alt="Meriam Jepang 02 Baru Tengah"></div>
+          <div class="content">
+            <h4>Meriam Jepang 02 Baru Tengah</h4>
+            <p>Lokasi dari Benda Cagar Budaya Kondisi Terawat ini beralamat Jalan Sultan Hasanuddin, Kel. Baru Tengah Kec. Balikpapan Barat Kota Balikpapan Sidadadi Baru Ulu.</p>
+          </div>
+        </a>
+
+        <a href="cagar3.html" class="cagar-item reveal delay-3">
+          <div class="img-wrap"><img src="cagar3.jpg" alt="Meriam Jepang Markoni"></div>
+          <div class="content">
+            <h4>Meriam Jepang Markoni</h4>
+            <p>Benda Cagar Budaya Terawat dengan lokasi Puncak Markoni, RT.10 Kel. Damai, Kec. Balikpapan Selatan Kota Balikpapan.</p>
+          </div>
+        </a>
+
+        <a href="cagar4.html" class="cagar-item reveal delay-4">
+          <div class="img-wrap"><img src="cagar4.jpg" alt="Meriam Jepang Tanjung Batu 2"></div>
+          <div class="content">
+            <h4>Meriam Jepang Tanjung Batu 2</h4>
+            <p>Benda Cagar Budaya kondisi Terawat PT. Pertamina Trans Kontinental, Tanjung Batu, Kel. Kariangau, Kec. Balikpapan Barat, Kota Balikpapan, Kalimantan Timur.</p>
+          </div>
+        </a>
+
+        <a href="cagar5.html" class="cagar-item reveal delay-5">
+          <div class="img-wrap"><img src="cagar5.jpg" alt="Meriam Jepang Tanjung Batu"></div>
+          <div class="content">
+            <h4>Meriam Jepang Tanjung Batu</h4>
+            <p>Benda Cagar Budaya kondisi Terawat PT. Pertamina Trans Kontinental Tanjung Batu, Kel. Kariangau, Kec. Balikpapan Barat, Kota Balikpapan, Kalimantan Timur.</p>
+          </div>
+        </a>
+
+        <a href="cagar6.html" class="cagar-item reveal delay-6">
+          <div class="img-wrap"><img src="cagar6.jpg" alt="Tugu Australia"></div>
+          <div class="content">
+            <h4>Tugu Australia</h4>
+            <p>Struktur Cagar Budaya Terawat dengan lokasi Jalan Jendral Sudirman RT.019, Kelurahan Prapatan, Kecamatan Balikpapan Kota, Kota Balikpapan, Kalimantan Timur.</p>
+          </div>
+        </a>
+
+        <a href="cagar7.html" class="cagar-item reveal delay-1">
+          <div class="img-wrap"><img src="cagar7.jpg" alt="Rumah Cagar Budaya Dahor"></div>
+          <div class="content">
+            <h4>Rumah Cagar Budaya Dahor</h4>
+            <p>Rumah Cagar Budaya Dahor yang berlokasi di Jalan Dahor, Kelurahan Klandasan Ulu, Kecamatan Balikpapan Kota.</p>
+          </div>
+        </a>
+
+        <a href="cagar8.html" class="cagar-item reveal delay-2">
+          <div class="img-wrap"><img src="cagar8.jpg" alt="Bunker Jepang"></div>
+          <div class="content">
+            <h4>Bunker Jepang</h4>
+            <p>Struktur pertahanan peninggalan Jepang yang berlokasi di wilayah pesisir Kota Balikpapan.</p>
+          </div>
+        </a>
+
+        <a href="cagar9.html" class="cagar-item reveal delay-3">
+          <div class="img-wrap"><img src="cagar9.jpg" alt="Bunker Pertahanan"></div>
+          <div class="content">
+            <h4>Bunker Pertahanan</h4>
+            <p>Bunker peninggalan perang dunia ke-2 yang masih terjaga keasliannya.</p>
+          </div>
+        </a>
+
+        <a href="cagar10.html" class="cagar-item reveal delay-4">
+          <div class="img-wrap"><img src="cagar10.jpg" alt="Museum Kayu"></div>
+          <div class="content">
+            <h4>Museum Kayu Balikpapan</h4>
+            <p>Museum yang menyimpan koleksi benda bersejarah Kota Balikpapan.</p>
+          </div>
+        </a>
+
+        <a href="cagar11.html" class="cagar-item reveal delay-5">
+          <div class="img-wrap"><img src="cagar11.jpg" alt="Monumen Perjuangan"></div>
+          <div class="content">
+            <h4>Monumen Perjuangan</h4>
+            <p>Monumen yang dibangun untuk mengenang jasa para pahlawan Kota Balikpapan.</p>
+          </div>
+        </a>
+
+        <a href="cagar12.html" class="cagar-item reveal delay-6">
+          <div class="img-wrap"><img src="cagar12.jpg" alt="Situs Bersejarah"></div>
+          <div class="content">
+            <h4>Situs Bersejarah</h4>
+            <p>Situs bersejarah peninggalan masa lampau yang dilestarikan oleh Pemerintah Kota Balikpapan.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JUDUL BAWAH -->
+  <div class="container">
+    <div class="cagar-title-wrap reveal">
+      <span class="cagar-title-sub">Koleksi</span>
+      <h2 class="cagar-title">Cagar Budaya Kota Balikpapan</h2>
+      <div class="cagar-title-dash"></div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="container">
+      <div class="video-yt-grid">
+        <div class="video-yt-item reveal delay-1">
+          <iframe src="https://www.youtube.com/embed/GCogB4Ay_VE?si=vAZDtJgRAJpa3Rtl" title="Video 1" allowfullscreen></iframe>
+        </div>
+        <div class="video-yt-item reveal delay-2">
+          <iframe src="https://www.youtube.com/embed/joouXvQ2FHs?si=BHfHULV2B4nFNayb" title="Video 2" allowfullscreen></iframe>
+        </div>
+        <div class="video-yt-item reveal delay-3">
+          <iframe src="https://www.youtube.com/embed/B2e4VhqhaYI?si=aMLUL-B18L3pKYlW" title="Video 3" allowfullscreen></iframe>
+        </div>
+        <div class="video-yt-item reveal delay-4">
+          <iframe src="https://www.youtube.com/embed/EKqRuMFilmo?si=9tcjqC6eKumnu-vu" title="Video 4" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">
+            <div class="footer-brand-mark">SB</div>
+            <div class="footer-brand-name">SIBAYA</div>
+          </div>
+          <p>
+            Sistem Informasi Budaya Kota Balikpapan. Platform digital untuk pelestarian
+            dan pemajuan kebudayaan daerah.
+          </p>
+        </div>
+        <div>
+          <h4>Navigasi</h4>
+          <p><a href="profil.html">Profil</a></p>
+          <p><a href="cagar-budaya.html">Cagar Budaya</a></p>
+          <p><a href="sanggar-binaan.html">Sanggar Binaan</a></p>
+          <p><a href="mitra-kebudayaan.html">Mitra Kebudayaan</a></p>
+        </div>
+        <div>
+          <h4>Kontak</h4>
+          <p>aryaqu007@gmail.com</p>
+          <p>+62 812 5416 353</p>
+          <p>info@sibayabalikpapan.online</p>
+        </div>
+        <div>
+          <h4>Link Terkait</h4>
+          <p><a href="https://dapobud.kemenbud.go.id" target="_blank">dapobud.kemenbud.go.id</a></p>
+          <p><a href="https://kemenbud.go.id" target="_blank">kemenbud.go.id</a></p>
+        </div>
+      </div>
+      <div class="footer-copy">
+        © 2026 SIBAYA — Sistem Informasi Budaya Kota Balikpapan. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<script>
+  /* PROGRESS BAR + NAVBAR SCROLL */
+  const progressBar = document.getElementById('progressBar');
+  const navbar = document.getElementById('navbar');
+  const toTopBtn = document.querySelector('.to-top');
+
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const d = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (s / d) * 100 + '%';
+    navbar.classList.toggle('scrolled', s > 30);
+    toTopBtn.classList.toggle('visible', s > 500);
+  });
+
+  /* NAVBAR AKTIF */
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === currentPage);
+  });
+
+  /* HAMBURGER */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* REVEAL */
+  const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('active');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold:.12, rootMargin:'0px 0px -60px 0px' });
+  revealEls.forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Privacy Policy - SIBAYA Kota Balikpapan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#8d3e51;
+      --wine-dark:#6f2f40;
+      --wine-soft:#f4e9ec;
+      --text:#6f6468;
+      --shadow:0 12px 32px rgba(67,30,39,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      color:#40242b;
+      background:#fff;
+      line-height:1.75;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND BATIK */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('batik.png');
+      background-repeat: repeat;
+      background-size: 320px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .topbar, .navbar, section, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    img{display:block;width:100%}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(900px, calc(100% - 42px));margin:auto}
+
+    /* NAVBAR */
+    .topbar{
+      background:#153d5b;
+      color:#fff;
+      font-size:12px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:#e6e0ec;
+      color:#6f2f40;
+      box-shadow:0 4px 16px rgba(0,0,0,.08);
+    }
+    .nav-inner{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+      width:min(1130px, calc(100% - 42px));
+      margin:auto;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size:23px;
+      font-weight:500;
+      color: #6f2f40;
+    }
+    .brand img { height: 50px; width: auto; }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      font-size:13px;
+      font-weight: 600;
+    }
+    .nav-links a{opacity:.85; white-space: nowrap; color:#c8102e;}
+    .nav-links a:hover{opacity:1}
+    .nav-links a.active {
+      font-weight: 700;
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .hamburger{
+      display:none;
+      width:42px;height:42px;
+      border:1px solid rgba(111,47,64,.3);
+      border-radius:8px;
+      color:#6f2f40;background:transparent;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    /* ====== PRIVACY SECTION ====== */
+    .privacy-section {
+      padding: 60px 0 80px;
+      background: transparent;
+    }
+    .privacy-inner {
+      background: #fff;
+      border-radius: 12px;
+      padding: 50px 55px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Judul utama */
+    .privacy-inner h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 800;
+      margin: 0 0 30px;
+      color: #111;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+
+    /* Sub judul */
+    .privacy-inner h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--wine-dark);
+      margin: 32px 0 12px;
+      letter-spacing: -.3px;
+    }
+
+    /* Paragraf */
+    .privacy-inner p {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin: 0 0 14px;
+      text-align: justify;
+    }
+
+    /* List */
+    .privacy-inner ul {
+      padding-left: 22px;
+      margin: 0 0 16px;
+    }
+    .privacy-inner ul li {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin-bottom: 6px;
+    }
+
+    /* Link email */
+    .privacy-inner a.email-link {
+      color: var(--wine);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .privacy-inner a.email-link:hover {
+      color: var(--wine-dark);
+    }
+
+    /* Tombol kembali */
+    .btn-back-wrap {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wine);
+      color: #fff;
+      padding: 13px 30px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(141,62,81,.3);
+    }
+    .btn-back:hover {
+      background: var(--wine-dark);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer{
+      background:#4d2832;
+      color:#fff;
+      padding:44px 0 25px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.3fr repeat(3,1fr);
+      gap:40px;
+    }
+    footer h4{margin:0 0 14px;font-size:15px;}
+    footer p,footer a{font-size:12px;color:rgba(255,255,255,.78);margin:6px 0;display:block;}
+    footer a:hover{color:#fff;}
+    .copyright{
+      margin-top:35px;padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.14);
+      font-size:11px;color:rgba(255,255,255,.62);
+      text-align:center;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:block}
+      .nav-links.open{
+        display:flex;
+        position:absolute;
+        top:70px;left:0;right:0;
+        background:#e6e0ec;
+        padding:18px 22px 22px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:14px;
+      }
+      .privacy-inner { padding: 35px 28px; }
+      .privacy-inner h1 { font-size: 32px; }
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 28px,1130px)}
+      .topbar{font-size:10px; padding: 0 12px; text-align: center;}
+      .privacy-inner { padding: 25px 20px; }
+      .privacy-inner h1 { font-size: 26px; }
+      .privacy-inner h2 { font-size: 15px; }
+      .privacy-inner p,
+      .privacy-inner ul li { font-size: 13.5px; }
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- PRIVACY SECTION -->
+  <section class="privacy-section">
+    <div class="container">
+      <div class="privacy-inner">
+
+        <h1>Privacy Policy</h1>
+
+        <p>
+          SIBAYA Kota Balikpapan website is owned by Setia Karya, which is a data controller of your personal data.
+        </p>
+
+        <p>
+          We have adopted this Privacy Policy, which determines how we are processing the information collected by SIBAYA Kota Balikpapan, which also provides the reasons why we must collect certain personal data about you. Therefore, you must read this Privacy Policy before using SIBAYA Kota Balikpapan website.
+        </p>
+
+        <p>
+          We take care of your personal data and undertake to guarantee its confidentiality and security.
+        </p>
+
+        <h2>Personal information we collect:</h2>
+        <p>
+          When you visit the SIBAYA Kota Balikpapan, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the installed cookies on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products you view, what websites or search terms referred you to the Site, and how you interact with the Site. We refer to this automatically-collected information as "Device Information." Moreover, we might collect the personal data you provide to us (including but not limited to Name, Surname, Address, payment information, etc.) during registration to be able to fulfill the agreement.
+        </p>
+
+        <h2>Why do we process your data?</h2>
+        <p>
+          Our top priority is customer data security, and, as such, we may process only minimal user data, only as much as it is absolutely necessary to maintain the website. Information collected automatically is used only to identify potential cases of abuse and establish statistical information regarding website usage. This statistical information is not otherwise aggregated in such a way that it would identify any particular user of the system.
+        </p>
+
+        <p>
+          You can visit the website without telling us who you are or revealing any information, by which someone could identify you as a specific, identifiable individual. If, however, you wish to use some of the website's features, or you wish to receive our newsletter or provide other details by filling a form, you may provide personal data to us, such as your email, first name, last name, city of residence, organization, telephone number. You can choose not to provide us with your personal data, but then you may not be able to take advantage of some of the website's features. For example, you won't be able to receive our Newsletter or contact us directly from the website. Users who are uncertain about what information is mandatory are welcome to contact us via <a href="mailto:aryaqu007@gmail.com" class="email-link">aryaqu007@gmail.com</a>.
+        </p>
+
+        <h2>Your rights:</h2>
+        <p>
+          If you are a European resident, you have the following rights related to your personal data:
+        </p>
+        <ul>
+          <li>The right to be informed.</li>
+          <li>The right of access.</li>
+          <li>The right to rectification.</li>
+          <li>The right to erasure.</li>
+          <li>The right to restrict processing.</li>
+          <li>The right to data portability.</li>
+          <li>The right to object.</li>
+          <li>Rights in relation to automated decision-making and profiling.</li>
+        </ul>
+        <p>
+          If you would like to exercise this right, please contact us through the contact information below.
+        </p>
+        <p>
+          Additionally, if you are a European resident, we note that we are processing your information in order to fulfill contracts we might have with you (for example, if you make an order through the Site), or otherwise to pursue our legitimate business interests listed above. Additionally, please note that your information might be transferred outside of Europe, including Canada and the United States.
+        </p>
+
+        <h2>Links to other websites:</h2>
+        <p>
+          Our website may contain links to other websites that are not owned or controlled by us. Please be aware that we are not responsible for such other websites or third parties' privacy practices. We encourage you to be aware when you leave our website and read the privacy statements of each website that may collect personal information.
+        </p>
+
+        <h2>Information security:</h2>
+        <p>
+          We secure information you provide on computer servers in a controlled, secure environment, protected from unauthorized access, use, or disclosure. We keep reasonable administrative, technical, and physical safeguards to protect against unauthorized access, use, modification, and personal data disclosure in its control and custody. However, no data transmission over the Internet or wireless network can be guaranteed.
+        </p>
+
+        <h2>Legal disclosure:</h2>
+        <p>
+          We will disclose any information we collect, use or receive if required or permitted by law, such as to comply with a subpoena or similar legal process, and when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.
+        </p>
+
+        <h2>Contact information:</h2>
+        <p>
+          If you would like to contact us to understand more about this Policy or wish to contact us concerning any matter relating to individual rights and your Personal Information, you may send an email to <a href="mailto:aryaqu007@gmail.com" class="email-link">aryaqu007@gmail.com</a>.
+        </p>
+
+        <!-- TOMBOL KEMBALI -->
+        <div class="btn-back-wrap">
+          <a href="profil.html" class="btn-back">← Kembali ke Halaman Profil</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>Kontak</h4>
+        <p>Hubungi kami untuk informasi lebih lanjut</p>
+        <p>📧 aryaqu007@gmail.com</p>
+        <p>📞 +628125416353</p>
+        <p>🌐 info@sibayabalikpapan.online</p>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>aryaqu007@gmail.com</p>
+      </div>
+      <div>
+        <h4>Telepon</h4>
+        <p>+628125416353</p>
+      </div>
+      <div>
+        <h4>Link Terkait</h4>
+        <p><a href="https://dapobud.kemenbud.go.id" target="_blank">https://dapobud.kemenbud.go.id</a></p>
+      </div>
+    </div>
+    <div class="container copyright">
+      © 2026. All rights reserved. Sibaya Balikpapan.
+    </div>
+  </footer>
+
+  <script>
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) link.classList.add('active');
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

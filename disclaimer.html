@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Disclaimer - SIBAYA Kota Balikpapan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#8d3e51;
+      --wine-dark:#6f2f40;
+      --wine-soft:#f4e9ec;
+      --text:#6f6468;
+      --shadow:0 12px 32px rgba(67,30,39,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      color:#40242b;
+      background:#fff;
+      line-height:1.75;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND BATIK */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('batik.png');
+      background-repeat: repeat;
+      background-size: 320px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .topbar, .navbar, section, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    img{display:block;width:100%}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(900px, calc(100% - 42px));margin:auto}
+
+    /* NAVBAR */
+    .topbar{
+      background:#153d5b;
+      color:#fff;
+      font-size:12px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:#e6e0ec;
+      color:#6f2f40;
+      box-shadow:0 4px 16px rgba(0,0,0,.08);
+    }
+    .nav-inner{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+      width:min(1130px, calc(100% - 42px));
+      margin:auto;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size:23px;
+      font-weight:500;
+      color: #6f2f40;
+    }
+    .brand img { height: 50px; width: auto; }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      font-size:13px;
+      font-weight: 600;
+    }
+    .nav-links a{opacity:.85; white-space: nowrap; color:#c8102e;}
+    .nav-links a:hover{opacity:1}
+    .nav-links a.active {
+      font-weight: 700;
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .hamburger{
+      display:none;
+      width:42px;height:42px;
+      border:1px solid rgba(111,47,64,.3);
+      border-radius:8px;
+      color:#6f2f40;background:transparent;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    /* ====== DISCLAIMER SECTION ====== */
+    .disclaimer-section {
+      padding: 60px 0 80px;
+      background: transparent;
+    }
+    .disclaimer-inner {
+      background: #fff;
+      border-radius: 12px;
+      padding: 50px 55px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Judul utama */
+    .disclaimer-inner h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 800;
+      margin: 0 0 10px;
+      color: #111;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    /* Subjudul instansi */
+    .disclaimer-inner .subtitle {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--wine-dark);
+      margin: 0 0 4px;
+      line-height: 1.5;
+    }
+    .disclaimer-inner .subtitle-sub {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin: 0 0 25px;
+    }
+
+    /* Paragraf pengantar */
+    .disclaimer-inner p.intro {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin: 0 0 25px;
+      text-align: justify;
+    }
+
+    /* Sub judul bernomor */
+    .disclaimer-inner h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--wine-dark);
+      margin: 32px 0 12px;
+      letter-spacing: -.3px;
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    /* Paragraf */
+    .disclaimer-inner p {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin: 0 0 14px;
+      text-align: justify;
+    }
+
+    /* List */
+    .disclaimer-inner ul {
+      padding-left: 22px;
+      margin: 0 0 16px;
+    }
+    .disclaimer-inner ul li {
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.85;
+      margin-bottom: 6px;
+    }
+
+    /* Penutup */
+    .disclaimer-inner .closing {
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 1px solid var(--wine-soft);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--wine-dark);
+      text-align: center;
+      line-height: 1.8;
+    }
+    .disclaimer-inner .closing strong {
+      display: block;
+      font-weight: 700;
+      color: #111;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    /* Tombol kembali */
+    .btn-back-wrap {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wine);
+      color: #fff;
+      padding: 13px 30px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(141,62,81,.3);
+    }
+    .btn-back:hover {
+      background: var(--wine-dark);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer{
+      background:#4d2832;
+      color:#fff;
+      padding:44px 0 25px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.3fr repeat(3,1fr);
+      gap:40px;
+    }
+    footer h4{margin:0 0 14px;font-size:15px;}
+    footer p,footer a{font-size:12px;color:rgba(255,255,255,.78);margin:6px 0;display:block;}
+    footer a:hover{color:#fff;}
+    .copyright{
+      margin-top:35px;padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.14);
+      font-size:11px;color:rgba(255,255,255,.62);
+      text-align:center;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:block}
+      .nav-links.open{
+        display:flex;
+        position:absolute;
+        top:70px;left:0;right:0;
+        background:#e6e0ec;
+        padding:18px 22px 22px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:14px;
+      }
+      .disclaimer-inner { padding: 35px 28px; }
+      .disclaimer-inner h1 { font-size: 30px; }
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 28px,1130px)}
+      .topbar{font-size:10px; padding: 0 12px; text-align: center;}
+      .disclaimer-inner { padding: 25px 20px; }
+      .disclaimer-inner h1 { font-size: 24px; }
+      .disclaimer-inner h2 { font-size: 15px; }
+      .disclaimer-inner p,
+      .disclaimer-inner ul li { font-size: 13.5px; }
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- DISCLAIMER SECTION -->
+  <section class="disclaimer-section">
+    <div class="container">
+      <div class="disclaimer-inner">
+
+        <h1>Disclaimer</h1>
+        <p class="subtitle">SIBAYA – SISTEM INFORMASI BUDAYA KOTA BALIKPAPAN</p>
+        <p class="subtitle-sub">Dinas Pendidikan dan Kebudayaan Kota Balikpapan<br>Bidang Kebudayaan</p>
+
+        <p class="intro">
+          Website SIBAYA (Sistem Informasi Budaya Kota Balikpapan) merupakan media informasi dan dokumentasi digital yang dikelola oleh Dinas Pendidikan dan Kebudayaan Kota Balikpapan, khususnya Bidang Kebudayaan, sebagai sarana penyebarluasan informasi mengenai kebudayaan, kesenian, komunitas budaya, sanggar seni, lembaga adat, kegiatan kebudayaan, serta potensi budaya yang terdapat di Kota Balikpapan.
+        </p>
+
+        <h2>1. Sifat Informasi</h2>
+        <p>
+          Informasi yang disajikan melalui SIBAYA dimaksudkan sebagai bahan informasi, edukasi, dokumentasi, dan publikasi kebudayaan kepada masyarakat.
+        </p>
+        <p>
+          Data dan informasi pada website dapat berasal dari berbagai sumber, termasuk Dinas Pendidikan dan Kebudayaan Kota Balikpapan, pelaku seni dan budaya, sanggar seni, lembaga adat, komunitas budaya, serta sumber informasi lainnya yang relevan.
+        </p>
+
+        <h2>2. Akurasi dan Pemutakhiran Data</h2>
+        <p>
+          Dinas Pendidikan dan Kebudayaan Kota Balikpapan berupaya untuk menyajikan informasi yang akurat, relevan, dan terkini. Namun demikian, terdapat kemungkinan adanya perubahan, pembaruan, keterlambatan pemutakhiran, atau ketidaksesuaian data.
+        </p>
+        <p>
+          Pengguna disarankan melakukan konfirmasi kepada Dinas Pendidikan dan Kebudayaan Kota Balikpapan Bidang Kebudayaan untuk memperoleh informasi resmi apabila informasi tersebut berkaitan dengan kepentingan administratif, hukum, kelembagaan, atau pengambilan keputusan.
+        </p>
+
+        <h2>3. Konten dan Dokumentasi</h2>
+        <p>
+          Sebagian konten SIBAYA berupa informasi, foto, video, tulisan, profil sanggar, profil komunitas, dokumentasi kegiatan, dan materi kebudayaan yang diperoleh dari pihak terkait.
+        </p>
+        <p>
+          Pencantuman nama, profil, foto, karya, atau informasi mengenai pelaku seni, sanggar, komunitas, dan lembaga budaya tidak serta-merta merupakan bentuk pengesahan, sertifikasi, atau pemberian status hukum tertentu, kecuali dinyatakan secara tegas oleh Dinas Pendidikan dan Kebudayaan Kota Balikpapan berdasarkan ketentuan yang berlaku.
+        </p>
+
+        <h2>4. Hak Cipta dan Kekayaan Intelektual</h2>
+        <p>
+          Setiap materi berupa tulisan, foto, video, logo, karya seni, dan materi lainnya yang memiliki hak cipta atau hak kekayaan intelektual tetap menjadi hak pihak yang berhak sesuai dengan ketentuan peraturan perundang-undangan.
+        </p>
+        <p>
+          Penggunaan kembali materi dari SIBAYA untuk kepentingan komersial, publikasi, atau keperluan lainnya harus memperhatikan hak cipta, hak moral, hak ekonomi, serta izin dari pemegang hak apabila diperlukan.
+        </p>
+
+        <h2>5. Tautan dan Sumber Eksternal</h2>
+        <p>
+          SIBAYA dapat memuat tautan atau referensi menuju situs web, media sosial, atau sumber informasi milik pihak lain.
+        </p>
+        <p>
+          Dinas Pendidikan dan Kebudayaan Kota Balikpapan tidak bertanggung jawab atas isi, keamanan, kebijakan privasi, maupun perubahan informasi pada situs atau sumber eksternal tersebut.
+        </p>
+
+        <h2>6. Penggunaan Informasi</h2>
+        <p>
+          Informasi yang tersedia di SIBAYA tidak dimaksudkan sebagai pengganti dokumen resmi, keputusan pemerintah, peraturan perundang-undangan, atau dokumen administratif yang memiliki kekuatan hukum.
+        </p>
+        <p>
+          Untuk informasi yang bersifat resmi dan memerlukan kepastian hukum, pengguna wajib mengacu pada dokumen dan sumber resmi yang diterbitkan oleh instansi yang berwenang.
+        </p>
+
+        <h2>7. Pengaduan dan Koreksi Data</h2>
+        <p>
+          Apabila masyarakat menemukan kesalahan, ketidaksesuaian, informasi yang sudah tidak relevan, atau konten yang memerlukan koreksi, masyarakat dapat menyampaikan laporan atau permohonan pembaruan data kepada Dinas Pendidikan dan Kebudayaan Kota Balikpapan Bidang Kebudayaan.
+        </p>
+        <p>
+          Setiap laporan akan menjadi bahan verifikasi dan evaluasi sebelum dilakukan perubahan atau pemutakhiran informasi.
+        </p>
+
+        <h2>8. Tanggung Jawab Pengguna</h2>
+        <p>
+          Pengguna SIBAYA bertanggung jawab atas penggunaan informasi yang diperoleh dari website sesuai dengan tujuan dan ketentuan yang berlaku.
+        </p>
+        <p>
+          Dinas Pendidikan dan Kebudayaan Kota Balikpapan tidak bertanggung jawab atas kerugian yang timbul akibat penggunaan informasi di luar konteks, penggunaan tanpa verifikasi, atau penggunaan yang bertentangan dengan peraturan perundang-undangan.
+        </p>
+
+        <h2>9. Perubahan Disclaimer</h2>
+        <p>
+          Dinas Pendidikan dan Kebudayaan Kota Balikpapan dapat melakukan perubahan, penyempurnaan, atau pembaruan terhadap Disclaimer ini sesuai dengan perkembangan layanan, sistem informasi, kebutuhan pengelolaan data kebudayaan, dan ketentuan peraturan perundang-undangan.
+        </p>
+
+        <h2>10. Pernyataan Penutup</h2>
+        <p>
+          Dengan mengakses dan menggunakan website SIBAYA – Sistem Informasi Budaya Kota Balikpapan, pengguna dianggap telah memahami dan menerima ketentuan dalam Disclaimer ini.
+        </p>
+        <p>
+          SIBAYA hadir sebagai media informasi dan dokumentasi kebudayaan untuk mendukung pelestarian, pengembangan, dan pemajuan kebudayaan Kota Balikpapan.
+        </p>
+
+        <div class="closing">
+          <strong>Dinas Pendidikan dan Kebudayaan Kota Balikpapan</strong>
+          Bidang Kebudayaan<br>
+          <span style="font-size: 13px; font-weight: 500; color: var(--text); display: inline-block; margin-top: 10px;">
+            Disclaimer ini merupakan bagian dari tata kelola informasi pada Website SIBAYA.
+          </span>
+        </div>
+
+        <!-- TOMBOL KEMBALI -->
+        <div class="btn-back-wrap">
+          <a href="profil.html" class="btn-back">← Kembali ke Halaman Profil</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>Kontak</h4>
+        <p>Hubungi kami untuk informasi lebih lanjut</p>
+        <p>📧 aryaqu007@gmail.com</p>
+        <p>📞 +628125416353</p>
+        <p>🌐 info@sibayabalikpapan.online</p>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>aryaqu007@gmail.com</p>
+      </div>
+      <div>
+        <h4>Telepon</h4>
+        <p>+628125416353</p>
+      </div>
+      <div>
+        <h4>Link Terkait</h4>
+        <p><a href="https://dapobud.kemenbud.go.id" target="_blank">https://dapobud.kemenbud.go.id</a></p>
+      </div>
+    </div>
+    <div class="container copyright">
+      © 2026. All rights reserved. Sibaya Balikpapan.
+    </div>
+  </footer>
+
+  <script>
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) link.classList.add('active');
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

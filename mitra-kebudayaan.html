@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Mitra Kebudayaan — SIBAYA Kota Balikpapan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#7a1425;
+    --wine-dark:#4a0812;
+    --wine-deep:#320510;
+    --wine-light:#9c2a3d;
+    --wine-soft:#f6e8eb;
+    --gold:#c9a24a;
+    --ink:#2a161c;
+    --text:#6d5a60;
+    --muted:#a69a9e;
+    --line:#ece0e3;
+    --bg:#fdfbfb;
+    --white:#fff;
+    --shadow-sm:0 4px 14px rgba(74,8,18,.06);
+    --shadow:0 14px 40px rgba(74,8,18,.10);
+    --shadow-lg:0 28px 70px rgba(74,8,18,.16);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:url('batik.png');
+    background-repeat:repeat;
+    background-size:340px;
+    opacity:.045;
+    pointer-events:none;
+    z-index:0;
+  }
+  img{display:block;width:100%;height:auto}
+  a{text-decoration:none;color:inherit}
+  button{font-family:inherit;cursor:pointer;border:0;background:none}
+  .container{width:min(1180px,calc(100% - 48px));margin:auto;position:relative;z-index:1}
+  ::selection{background:var(--wine);color:#fff}
+
+  /* PROGRESS BAR */
+  .progress-bar{
+    position:fixed;top:0;left:0;
+    height:3px;width:0%;
+    background:linear-gradient(90deg,var(--wine),var(--gold));
+    z-index:9999;
+    transition:width .15s ease;
+  }
+
+  /* NAVBAR */
+  .navbar{
+    position:sticky;top:0;z-index:100;
+    background:var(--wine);
+    color:#fff;
+    transition:all .4s var(--ease);
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+  }
+  .navbar.scrolled{
+    box-shadow:0 8px 26px rgba(74,8,18,.22);
+    background:rgba(122,20,37,.97);
+    backdrop-filter:saturate(180%) blur(8px);
+  }
+  .nav-inner{
+    min-height:74px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:28px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    font-family:'Playfair Display',serif;
+    font-size:22px;font-weight:700;letter-spacing:.5px;
+  }
+  .brand-mark{
+    width:42px;height:42px;border-radius:10px;
+    background:linear-gradient(135deg,#c9a24a,#e7c773);
+    color:var(--wine-deep);
+    display:grid;place-items:center;
+    font-family:'Playfair Display',serif;
+    font-weight:800;font-size:17px;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+  }
+  .brand img{height:42px;width:auto;border-radius:8px}
+  .brand-sub{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:9.5px;font-weight:500;
+    letter-spacing:2.5px;
+    color:rgba(255,255,255,.7);
+    margin-top:-2px;
+  }
+  .nav-links{
+    display:flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:500;
+  }
+  .nav-links a{
+    padding:9px 14px;border-radius:8px;
+    white-space:nowrap;
+    color:rgba(255,255,255,.88);
+    transition:all .25s ease;position:relative;
+  }
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+  .nav-links a.active{color:#fff;background:rgba(255,255,255,.16)}
+  .nav-links a.active::after{
+    content:"";position:absolute;
+    left:50%;bottom:2px;transform:translateX(-50%);
+    width:18px;height:2px;
+    background:var(--gold);border-radius:2px;
+  }
+  .hamburger{
+    display:none;width:44px;height:44px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:10px;color:#fff;
+    font-size:20px;
+    align-items:center;justify-content:center;
+  }
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.active{opacity:1;transform:translateY(0)}
+  .reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-left.active{opacity:1;transform:translateX(0)}
+  .reveal-right{opacity:0;transform:translateX(60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-right.active{opacity:1;transform:translateX(0)}
+  .reveal-zoom{opacity:0;transform:scale(.92);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-zoom.active{opacity:1;transform:scale(1)}
+  .reveal-photo{opacity:0;transform:scale(1.08);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+  .reveal-photo.active{opacity:1;transform:scale(1)}
+  .reveal-img{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal-img.active{opacity:1;transform:translateY(0)}
+  .delay-1{transition-delay:.08s}
+  .delay-2{transition-delay:.16s}
+  .delay-3{transition-delay:.24s}
+  .delay-4{transition-delay:.32s}
+  .delay-5{transition-delay:.40s}
+  .delay-6{transition-delay:.48s}
+
+  /* SECTION */
+  section{padding:90px 0;position:relative}
+
+  /* DETAIL SECTION */
+  .detail-section{padding:70px 0 90px;background:transparent}
+  .detail-inner{
+    background:transparent;
+    border-radius:20px;
+    padding:0;
+    position:relative;
+    z-index:1;
+  }
+
+  /* HEADER + STATS */
+  .info-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:50px;
+    align-items:center;
+    margin-bottom:50px;
+  }
+  .info-content .eyebrow{
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--wine);
+    font-weight:600;
+    margin-bottom:18px;
+    display:inline-block;
+  }
+  .info-grid h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(34px,5vw,52px);
+    font-weight:800;
+    margin:0 0 20px;
+    color:var(--wine-deep);
+    letter-spacing:-1.5px;
+    line-height:1.05;
+  }
+  .info-grid h1 em{font-style:italic;color:var(--wine);font-weight:500}
+  .info-grid p{
+    font-size:15.5px;
+    color:var(--text);
+    line-height:1.85;
+    margin:0;
+    text-align:justify;
+  }
+
+  /* STATS */
+  .stats-card-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  .stat-card{
+    background:#fff;
+    padding:30px 24px;
+    border-radius:16px;
+    text-align:center;
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--line);
+    transition:all .4s var(--ease);
+  }
+  .stat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow);
+    border-color:var(--gold);
+  }
+  .stat-card strong{
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-size:44px;
+    font-weight:800;
+    color:var(--wine);
+    line-height:1;
+    margin-bottom:10px;
+  }
+  .stat-card span{
+    font-size:11.5px;
+    color:var(--text);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+  }
+
+  /* FOTO HERO */
+  .foto-besar{
+    position:relative;
+    width:100%;
+    margin:0 0 70px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
+    cursor:zoom-in;
+    background:#faf7f8;
+    border:1px solid var(--line);
+  }
+  .foto-besar img{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    transition:transform .8s var(--ease);
+  }
+  .foto-besar:hover img{transform:scale(1.02)}
+  .foto-besar::after{
+    content:"🔍 Klik untuk memperbesar";
+    position:absolute;bottom:20px;right:20px;
+    background:rgba(74,8,18,.92);
+    backdrop-filter:blur(6px);
+    color:#fff;
+    padding:9px 18px;
+    border-radius:100px;
+    font-size:11.5px;font-weight:600;
+    letter-spacing:.5px;
+    opacity:0;
+    transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .foto-besar:hover::after{opacity:1}
+
+  /* SECTION HEADING */
+  .section-block{margin-top:80px}
+  .section-heading-center{
+    text-align:center;
+    margin:0 auto 50px;
+    max-width:680px;
+  }
+  .section-heading-center .eyebrow{
+    font-size:11px;
+    letter-spacing:3.5px;
+    text-transform:uppercase;
+    color:var(--wine);
+    font-weight:600;
+    margin-bottom:14px;
+    display:inline-block;
+  }
+  .section-heading-center h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,4vw,44px);
+    font-weight:700;
+    color:var(--wine-deep);
+    margin:0 0 14px;
+    letter-spacing:-1px;
+    line-height:1.15;
+  }
+  .section-heading-center p{
+    font-size:14.5px;
+    color:var(--text);
+    margin:0;
+    line-height:1.7;
+  }
+  .section-heading-center .dash{
+    width:48px;height:2px;
+    background:var(--gold);
+    margin:18px auto 0;
+    border-radius:2px;
+  }
+
+  /* KEGIATAN */
+  .kegiatan-layout{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+    margin-bottom:30px;
+  }
+  .kegiatan-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--line);
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+  }
+  .kegiatan-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-lg);
+    border-color:var(--gold);
+  }
+  .kegiatan-card-header{
+    padding:24px 24px 26px;
+    text-align:center;
+  }
+  .kegiatan-card-header h3{
+    font-family:'Playfair Display',serif;
+    font-size:18px;
+    font-weight:700;
+    margin:0 0 8px;
+    color:var(--wine-deep);
+    line-height:1.3;
+  }
+  .kegiatan-card-header p{
+    font-size:13px;
+    color:var(--text);
+    margin:0;
+    line-height:1.6;
+  }
+
+  /* GRID 2x2 */
+  .grid-2x2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding:10px;
+  }
+  .grid-2x2 > img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:zoom-in;
+    background:#faf7f8;
+    border:1px solid var(--line);
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+  }
+  .grid-2x2 > img:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:var(--shadow);
+  }
+
+  /* FOTO SINGLE KEGIATAN */
+  .kegiatan-img-single{width:100%}
+  .kegiatan-img-single img{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    border-radius:14px;
+    cursor:zoom-in;
+    background:#faf7f8;
+    border:1px solid var(--line);
+    transition:transform .6s var(--ease);
+  }
+  .kegiatan-img-single img:hover{transform:scale(1.02)}
+
+  .kegiatan-card-center{
+    max-width:680px;
+    margin:0 auto;
+  }
+
+  /* GALERI */
+  .galeri-grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .img-card{
+    position:relative;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    aspect-ratio:4/3;
+    cursor:zoom-in;
+    background:#faf7f8;
+    border:1px solid var(--line);
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+  }
+  .img-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-lg);
+    border-color:var(--gold);
+  }
+  .img-card img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform .8s var(--ease);
+  }
+  .img-card:hover img{transform:scale(1.06)}
+
+  /* LOGO DISDIKBUD */
+  .disdikbud-mark{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 20px 20px;
+    margin-top:20px;
+  }
+  .disdikbud-mark img{
+    width:auto;
+    height:100px;
+    object-fit:contain;
+    opacity:.95;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  /* FOOTER */
+  footer{
+    background:#1a050a;
+    color:rgba(255,255,255,.75);
+    padding:70px 0 30px;
+    position:relative;
+  }
+  .footer-top{
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1.2fr;
+    gap:50px;
+    padding-bottom:50px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:20px;
+  }
+  .footer-brand-mark{
+    width:42px;height:42px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#c9a24a,#e7c773);
+    color:var(--wine-deep);
+    display:grid;place-items:center;
+    font-family:'Playfair Display',serif;
+    font-weight:800;font-size:17px;
+  }
+  .footer-brand-name{
+    font-family:'Playfair Display',serif;
+    font-size:20px;font-weight:700;color:#fff;
+  }
+  footer h4{
+    font-size:12px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 20px;
+  }
+  footer p,footer a{
+    font-size:13px;
+    line-height:1.9;
+    color:rgba(255,255,255,.7);
+    transition:color .25s ease;
+  }
+  footer a:hover{color:var(--gold)}
+  .footer-copy{
+    text-align:center;padding-top:30px;
+    font-size:12px;
+    color:rgba(255,255,255,.4);
+    letter-spacing:.5px;
+  }
+
+  /* TO-TOP */
+  .to-top{
+    position:fixed;
+    right:26px;bottom:26px;
+    width:46px;height:46px;
+    border-radius:50%;
+    background:var(--wine);
+    color:#fff;
+    display:grid;place-items:center;
+    z-index:200;
+    opacity:0;visibility:hidden;
+    transform:translateY(20px);
+    transition:all .4s var(--ease);
+    box-shadow:0 12px 26px rgba(74,8,18,.35);
+    font-size:18px;
+  }
+  .to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+  .to-top:hover{
+    background:var(--gold);
+    color:var(--wine-deep);
+    transform:translateY(-4px);
+    box-shadow:0 18px 34px rgba(201,162,74,.4);
+  }
+
+  /* LIGHTBOX */
+  .lightbox{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(26,5,10,.96);
+    z-index:9999;
+    align-items:center;justify-content:center;
+    padding:40px;
+    cursor:zoom-out;
+    animation:fadeIn .3s ease;
+  }
+  .lightbox.show{display:flex}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lightbox img{
+    max-width:94%;max-height:88vh;
+    width:auto;height:auto;
+    border-radius:10px;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+    animation:zoomIn .35s var(--ease);
+    cursor:default;
+  }
+  @keyframes zoomIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+  .lightbox .close-btn{
+    position:absolute;
+    top:24px;right:28px;
+    width:48px;height:48px;
+    border-radius:50%;
+    background:#fff;
+    color:var(--wine-deep);
+    font-size:24px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s ease;
+    line-height:1;
+  }
+  .lightbox .close-btn:hover{
+    background:var(--gold);
+    transform:rotate(90deg) scale(1.05);
+  }
+  .lightbox .nav-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:48px;height:48px;
+    border-radius:50%;
+    background:rgba(255,255,255,.9);
+    color:var(--wine-deep);
+    font-size:22px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s ease;
+    z-index:10001;
+  }
+  .lightbox .nav-btn:hover{
+    background:var(--gold);
+    transform:translateY(-50%) scale(1.1);
+  }
+  .lightbox .nav-btn.prev{left:25px}
+  .lightbox .nav-btn.next{right:25px}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){
+    .info-grid{grid-template-columns:1fr;gap:36px}
+    .kegiatan-layout{grid-template-columns:1fr}
+    .galeri-grid-3{grid-template-columns:repeat(2,1fr)}
+    .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+  }
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .hamburger{display:flex}
+    .nav-links.open{
+      display:flex;position:absolute;
+      top:74px;left:0;right:0;
+      background:var(--wine-deep);
+      flex-direction:column;align-items:stretch;gap:0;
+      padding:14px 20px 22px;
+      box-shadow:0 20px 40px rgba(0,0,0,.3);
+    }
+    .nav-links.open a{padding:14px 12px;border-radius:8px}
+    section{padding:70px 0}
+  }
+  @media(max-width:600px){
+    .container{width:min(100% - 32px,1180px)}
+    .brand{font-size:18px}
+    .brand-mark{width:38px;height:38px;font-size:15px}
+    .nav-inner{min-height:64px}
+    .nav-links.open{top:64px}
+    .galeri-grid-3{grid-template-columns:1fr}
+    .stats-card-container{grid-template-columns:1fr}
+    .footer-top{grid-template-columns:1fr;gap:34px}
+    .lightbox{padding:16px}
+    .lightbox .nav-btn{width:40px;height:40px;font-size:18px}
+    .lightbox .nav-btn.prev{left:12px}
+    .lightbox .nav-btn.next{right:12px}
+    .disdikbud-mark img{height:70px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <img src="logo-sibaya.png" alt="Logo Sibaya" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+        <span class="brand-mark" style="display:none">SB</span>
+        <span>
+          SIBAYA
+          <span class="brand-sub">SISTEM INFORMASI BUDAYA</span>
+        </span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="cagar-budaya.html">Cagar Budaya</a>
+        <a href="sanggar-binaan.html">Sanggar Binaan</a>
+        <a href="mitra-kebudayaan.html">Mitra Kebudayaan</a>
+        <a href="objek-pemajuan.html">Obyek Pemajuan</a>
+        <a href="pelatihan.html">Pelatihan &amp; Pembinaan</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- DETAIL SECTION -->
+  <section class="detail-section">
+    <div class="container">
+      <div class="detail-inner">
+
+        <!-- INFO + STATS -->
+        <div class="info-grid">
+          <div class="info-content reveal-left">
+            <span class="eyebrow">Mitra Kebudayaan</span>
+            <h1>Lembaga <em>Adat</em></h1>
+            <p>
+              Lembaga Adat merupakan organisasi kemasyarakatan adat yang berperan dalam menjaga, melestarikan, dan mengembangkan nilai-nilai adat istiadat serta kearifan lokal yang hidup dan berkembang di tengah masyarakat Kota Balikpapan. Lembaga ini menjadi wadah musyawarah adat sekaligus penjaga norma, tradisi, dan identitas budaya daerah.
+            </p>
+          </div>
+          <div class="stats-card-container reveal-right">
+            <div class="stat-card">
+              <strong data-count="15">0</strong>
+              <span>Pengguna Aktif</span>
+            </div>
+            <div class="stat-card">
+              <strong data-count="3">0</strong>
+              <span>Lembaga Adat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOTO HERO -->
+        <div class="foto-besar reveal-photo" onclick="openLightbox('mitra-hero.jpg')">
+          <img src="mitra-hero.jpg" alt="Pelantikan Pengurus Lembaga Adat">
+        </div>
+
+        <!-- KEGIATAN BUDAYA -->
+        <div class="section-block">
+          <div class="section-heading-center reveal">
+            <span class="eyebrow">Kegiatan</span>
+            <h2>Kegiatan Budaya</h2>
+            <div class="dash"></div>
+            <p>Mengabadikan tradisi dan seni Balikpapan</p>
+          </div>
+
+          <div class="kegiatan-layout">
+            <!-- KARTU 1 -->
+            <div class="kegiatan-card reveal-left delay-1">
+              <div class="kegiatan-img-single" style="padding: 12px 12px 0;">
+                <img src="kegiatan1.jpg" alt="Pelantikan Lembaga Adat Paser" onclick="openLightbox('kegiatan1.jpg')">
+              </div>
+              <div class="kegiatan-card-header">
+                <h3>Pelantikan Lembaga Adat Paser</h3>
+                <p>Pelantikan Pengurus Lembaga Adat Paser Kota Balikpapan Masa Bakti 2025-2030</p>
+              </div>
+              <div class="kegiatan-img-single" style="padding: 0 12px 12px;">
+                <img src="kegiatan1b.jpg" alt="Pelantikan Lembaga Adat Paser 2" onclick="openLightbox('kegiatan1b.jpg')">
+              </div>
+            </div>
+
+            <!-- KARTU 2 -->
+            <div class="kegiatan-card reveal-right delay-2">
+              <div class="grid-2x2">
+                <img src="kegiatan2_1.jpg" alt="Syukuran 1" onclick="openLightbox(['kegiatan2_1.jpg','kegiatan2_2.jpg','kegiatan2_3.jpg','kegiatan2_4.jpg'], 0)">
+                <img src="kegiatan2_2.jpg" alt="Syukuran 2" onclick="openLightbox(['kegiatan2_1.jpg','kegiatan2_2.jpg','kegiatan2_3.jpg','kegiatan2_4.jpg'], 1)">
+                <img src="kegiatan2_3.jpg" alt="Syukuran 3" onclick="openLightbox(['kegiatan2_1.jpg','kegiatan2_2.jpg','kegiatan2_3.jpg','kegiatan2_4.jpg'], 2)">
+                <img src="kegiatan2_4.jpg" alt="Syukuran 4" onclick="openLightbox(['kegiatan2_1.jpg','kegiatan2_2.jpg','kegiatan2_3.jpg','kegiatan2_4.jpg'], 3)">
+              </div>
+              <div class="kegiatan-card-header">
+                <h3>Syukuran Lembaga Adat Dayak Kenyah Kota Balikpapan</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- KARTU TENGAH -->
+          <div class="kegiatan-card kegiatan-card-center reveal-zoom delay-3">
+            <div class="kegiatan-img-single" style="padding: 12px 12px 0;">
+              <img src="kegiatan3.jpg" alt="Bantuan Lembaga Adat" onclick="openLightbox('kegiatan3.jpg')">
+            </div>
+            <div class="kegiatan-card-header">
+              <h3>Bantuan Lembaga Adat</h3>
+              <p>Mendorong Pengenalan Adat dan Budaya</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GALERI -->
+        <div class="section-block">
+          <div class="section-heading-center reveal">
+            <span class="eyebrow">Galeri</span>
+            <h2>Momen Budaya</h2>
+            <div class="dash"></div>
+            <p>Momen budaya Balikpapan yang hidup dan penuh warna.</p>
+          </div>
+          <div class="galeri-grid-3">
+            <div class="img-card reveal-img delay-1" onclick="openLightbox('mitra-galeri1.jpg')">
+              <img src="mitra-galeri1.jpg" alt="Galeri 1">
+            </div>
+            <div class="img-card reveal-img delay-2" onclick="openLightbox('mitra-galeri2.jpg')">
+              <img src="mitra-galeri2.jpg" alt="Galeri 2">
+            </div>
+            <div class="img-card reveal-img delay-3" onclick="openLightbox('mitra-galeri3.jpg')">
+              <img src="mitra-galeri3.jpg" alt="Galeri 3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">
+            <div class="footer-brand-mark">SB</div>
+            <div class="footer-brand-name">SIBAYA</div>
+          </div>
+          <p>
+            Sistem Informasi Budaya Kota Balikpapan. Platform digital untuk pelestarian
+            dan pemajuan kebudayaan daerah.
+          </p>
+        </div>
+        <div>
+          <h4>Navigasi</h4>
+          <p><a href="profil.html">Profil</a></p>
+          <p><a href="cagar-budaya.html">Cagar Budaya</a></p>
+          <p><a href="sanggar-binaan.html">Sanggar Binaan</a></p>
+          <p><a href="mitra-kebudayaan.html">Mitra Kebudayaan</a></p>
+        </div>
+        <div>
+          <h4>Kontak</h4>
+          <p>aryaqu007@gmail.com</p>
+          <p>+62 812 5416 353</p>
+          <p>info@sibayabalikpapan.online</p>
+        </div>
+        <div>
+          <h4>Link Terkait</h4>
+          <p><a href="https://dapobud.kemenbud.go.id" target="_blank">dapobud.kemenbud.go.id</a></p>
+          <p><a href="https://kemenbud.go.id" target="_blank">kemenbud.go.id</a></p>
+        </div>
+      </div>
+      <div class="footer-copy">
+        © 2026 SIBAYA — Sistem Informasi Budaya Kota Balikpapan. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox(event)">&times;</button>
+    <button class="nav-btn prev" onclick="prevLightbox(event)">❮</button>
+    <img id="lightboxImg" src="" alt="Preview" onclick="event.stopPropagation()">
+    <button class="nav-btn next" onclick="nextLightbox(event)">❯</button>
+  </div>
+
+<script>
+  /* PROGRESS BAR + NAVBAR SCROLL */
+  const progressBar = document.getElementById('progressBar');
+  const navbar = document.getElementById('navbar');
+  const toTopBtn = document.querySelector('.to-top');
+
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const d = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (s / d) * 100 + '%';
+    navbar.classList.toggle('scrolled', s > 30);
+    toTopBtn.classList.toggle('visible', s > 500);
+  });
+
+  /* NAVBAR AKTIF */
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === currentPage);
+  });
+
+  /* HAMBURGER */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* REVEAL */
+  const revealEls = document.querySelectorAll(
+    '.reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-photo, .reveal-img'
+  );
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('active');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold:.12, rootMargin:'0px 0px -80px 0px' });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  /* COUNTER ANGKA STATISTIK */
+  function animateCount(el, target, duration = 1500){
+    const start = performance.now();
+    function tick(now){
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString('id-ID');
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('id-ID');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const counterEls = document.querySelectorAll('.stat-card strong[data-count]');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        animateCount(e.target, +e.target.dataset.count);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold:.4 });
+  counterEls.forEach(el => counterObs.observe(el));
+
+  /* LIGHTBOX dengan navigasi */
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+
+  function openLightbox(src, index){
+    if (Array.isArray(src)){
+      lightboxImages = src;
+      lightboxIndex = index || 0;
+    } else {
+      lightboxImages = [src];
+      lightboxIndex = 0;
+    }
+    document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+    document.getElementById('lightbox').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    updateNavButtons();
+  }
+  function closeLightbox(e){
+    if (e) e.stopPropagation();
+    document.getElementById('lightbox').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  function nextLightbox(e){
+    if (e) e.stopPropagation();
+    lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+    document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+  }
+  function prevLightbox(e){
+    if (e) e.stopPropagation();
+    lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+  }
+  function updateNavButtons(){
+    document.querySelectorAll('.lightbox .nav-btn').forEach(btn => {
+      btn.style.display = lightboxImages.length > 1 ? 'flex' : 'none';
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('show')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextLightbox();
+    if (e.key === 'ArrowLeft') prevLightbox();
+  });
+</script>
+</body>
+</html>
